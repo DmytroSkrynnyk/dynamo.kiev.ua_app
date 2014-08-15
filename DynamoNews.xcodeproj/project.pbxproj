@@ -1,0 +1,745 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		35AE414D3557474FA7A0290A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2375F11BEA6C4CA58F2572F5 /* libPods.a */; };
+		964CF88919894DC700A99709 /* ParseDynamoKievUa.m in Sources */ = {isa = PBXBuildFile; fileRef = 964CF88819894DC700A99709 /* ParseDynamoKievUa.m */; };
+		964CF89919894FFC00A99709 /* m_sport_ua_article.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89019894FFC00A99709 /* m_sport_ua_article.html */; };
+		964CF89A19894FFC00A99709 /* sport_ua_news_archive.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89119894FFC00A99709 /* sport_ua_news_archive.html */; };
+		964CF89B19894FFC00A99709 /* dynamo_news.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89219894FFC00A99709 /* dynamo_news.html */; };
+		964CF89C19894FFC00A99709 /* dynamo_articles.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89319894FFC00A99709 /* dynamo_articles.html */; };
+		964CF89D19894FFC00A99709 /* dynamo_article_page.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89419894FFC00A99709 /* dynamo_article_page.html */; };
+		964CF89E19894FFC00A99709 /* sports_ru_nba.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89519894FFC00A99709 /* sports_ru_nba.html */; };
+		964CF89F19894FFC00A99709 /* sports_ru_article.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89619894FFC00A99709 /* sports_ru_article.html */; };
+		964CF8A019894FFC00A99709 /* f1news_newsOfTheDay_page.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89719894FFC00A99709 /* f1news_newsOfTheDay_page.html */; };
+		964CF8A119894FFC00A99709 /* f1news_article.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89819894FFC00A99709 /* f1news_article.html */; };
+		964CF8AC1989535B00A99709 /* NSString+DeleteSpecialCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = 964CF8AB1989535B00A99709 /* NSString+DeleteSpecialCharacters.m */; };
+		96B24C13197B0A5300732573 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B24C12197B0A5300732573 /* Foundation.framework */; };
+		96B24C15197B0A5300732573 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B24C14197B0A5300732573 /* CoreGraphics.framework */; };
+		96B24C17197B0A5300732573 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B24C16197B0A5300732573 /* UIKit.framework */; };
+		96B24C1D197B0A5300732573 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96B24C1B197B0A5300732573 /* InfoPlist.strings */; };
+		96B24C1F197B0A5300732573 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B24C1E197B0A5300732573 /* main.m */; };
+		96B24C23197B0A5300732573 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B24C22197B0A5300732573 /* AppDelegate.m */; };
+		96B24C26197B0A5300732573 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96B24C24197B0A5300732573 /* Main.storyboard */; };
+		96B24C29197B0A5300732573 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B24C28197B0A5300732573 /* ViewController.m */; };
+		96B24C2B197B0A5300732573 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96B24C2A197B0A5300732573 /* Images.xcassets */; };
+		96B24C32197B0A5300732573 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B24C31197B0A5300732573 /* XCTest.framework */; };
+		96B24C33197B0A5300732573 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B24C12197B0A5300732573 /* Foundation.framework */; };
+		96B24C34197B0A5300732573 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B24C16197B0A5300732573 /* UIKit.framework */; };
+		96B24C3C197B0A5300732573 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96B24C3A197B0A5300732573 /* InfoPlist.strings */; };
+		96B24C3E197B0A5300732573 /* DynamoNewsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B24C3D197B0A5300732573 /* DynamoNewsTests.m */; };
+		96B24C49197D0CBC00732573 /* RSSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B24C48197D0CBC00732573 /* RSSParser.m */; };
+		96B24C4B197D22F800732573 /* rss20.xml in Resources */ = {isa = PBXBuildFile; fileRef = 96B24C4A197D22F800732573 /* rss20.xml */; };
+		96B24C4E197D3AF000732573 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B24C4D197D3AF000732573 /* CustomCell.m */; };
+		96B24C5A197D7A5500732573 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B24C59197D7A5500732573 /* ArticleViewController.m */; };
+		96B24C60197D83BE00732573 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B24C5D197D83BE00732573 /* HTMLNode.m */; };
+		96B24C61197D83BE00732573 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B24C5F197D83BE00732573 /* HTMLParser.m */; };
+		96B24C63197D84EB00732573 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B24C62197D84EB00732573 /* libxml2.dylib */; };
+		96D1133F19917691002091D7 /* InfoDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1133E19917691002091D7 /* InfoDownloader.m */; };
+		96D1134219917C15002091D7 /* ContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1134119917C15002091D7 /* ContentController.m */; };
+		96D1134619918032002091D7 /* ArticleContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1134519918032002091D7 /* ArticleContent.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		96B24C35197B0A5300732573 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96B24C07197B0A5300732573 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96B24C0E197B0A5300732573;
+			remoteInfo = DynamoNews;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2375F11BEA6C4CA58F2572F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9627B86F1984D84400053D99 /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
+		964CF88719894DC700A99709 /* ParseDynamoKievUa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseDynamoKievUa.h; sourceTree = "<group>"; };
+		964CF88819894DC700A99709 /* ParseDynamoKievUa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseDynamoKievUa.m; sourceTree = "<group>"; };
+		964CF89019894FFC00A99709 /* m_sport_ua_article.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = m_sport_ua_article.html; sourceTree = "<group>"; };
+		964CF89119894FFC00A99709 /* sport_ua_news_archive.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = sport_ua_news_archive.html; sourceTree = "<group>"; };
+		964CF89219894FFC00A99709 /* dynamo_news.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dynamo_news.html; sourceTree = "<group>"; };
+		964CF89319894FFC00A99709 /* dynamo_articles.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dynamo_articles.html; sourceTree = "<group>"; };
+		964CF89419894FFC00A99709 /* dynamo_article_page.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dynamo_article_page.html; sourceTree = "<group>"; };
+		964CF89519894FFC00A99709 /* sports_ru_nba.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = sports_ru_nba.html; sourceTree = "<group>"; };
+		964CF89619894FFC00A99709 /* sports_ru_article.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = sports_ru_article.html; sourceTree = "<group>"; };
+		964CF89719894FFC00A99709 /* f1news_newsOfTheDay_page.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = f1news_newsOfTheDay_page.html; sourceTree = "<group>"; };
+		964CF89819894FFC00A99709 /* f1news_article.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = f1news_article.html; sourceTree = "<group>"; };
+		964CF8AA1989535B00A99709 /* NSString+DeleteSpecialCharacters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DeleteSpecialCharacters.h"; sourceTree = "<group>"; };
+		964CF8AB1989535B00A99709 /* NSString+DeleteSpecialCharacters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DeleteSpecialCharacters.m"; sourceTree = "<group>"; };
+		96B24C0F197B0A5300732573 /* DynamoNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DynamoNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96B24C12197B0A5300732573 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		96B24C14197B0A5300732573 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		96B24C16197B0A5300732573 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		96B24C1A197B0A5300732573 /* DynamoNews-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DynamoNews-Info.plist"; sourceTree = "<group>"; };
+		96B24C1C197B0A5300732573 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		96B24C1E197B0A5300732573 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		96B24C20197B0A5300732573 /* DynamoNews-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DynamoNews-Prefix.pch"; sourceTree = "<group>"; };
+		96B24C21197B0A5300732573 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		96B24C22197B0A5300732573 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		96B24C25197B0A5300732573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		96B24C27197B0A5300732573 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		96B24C28197B0A5300732573 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		96B24C2A197B0A5300732573 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		96B24C30197B0A5300732573 /* DynamoNewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DynamoNewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		96B24C31197B0A5300732573 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		96B24C39197B0A5300732573 /* DynamoNewsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DynamoNewsTests-Info.plist"; sourceTree = "<group>"; };
+		96B24C3B197B0A5300732573 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		96B24C3D197B0A5300732573 /* DynamoNewsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamoNewsTests.m; sourceTree = "<group>"; };
+		96B24C47197D0CBC00732573 /* RSSParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSParser.h; sourceTree = "<group>"; };
+		96B24C48197D0CBC00732573 /* RSSParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSParser.m; sourceTree = "<group>"; };
+		96B24C4A197D22F800732573 /* rss20.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rss20.xml; sourceTree = "<group>"; };
+		96B24C4C197D3AF000732573 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
+		96B24C4D197D3AF000732573 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
+		96B24C58197D7A5500732573 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArticleViewController.h; path = ../ArticleViewController.h; sourceTree = "<group>"; };
+		96B24C59197D7A5500732573 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArticleViewController.m; path = ../ArticleViewController.m; sourceTree = "<group>"; };
+		96B24C5C197D83BE00732573 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLNode.h; sourceTree = "<group>"; };
+		96B24C5D197D83BE00732573 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLNode.m; sourceTree = "<group>"; };
+		96B24C5E197D83BE00732573 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
+		96B24C5F197D83BE00732573 /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
+		96B24C62197D84EB00732573 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		96D1133D19917691002091D7 /* InfoDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoDownloader.h; sourceTree = "<group>"; };
+		96D1133E19917691002091D7 /* InfoDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoDownloader.m; sourceTree = "<group>"; };
+		96D1134019917C15002091D7 /* ContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentController.h; sourceTree = "<group>"; };
+		96D1134119917C15002091D7 /* ContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentController.m; sourceTree = "<group>"; };
+		96D1134419918032002091D7 /* ArticleContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleContent.h; sourceTree = "<group>"; };
+		96D1134519918032002091D7 /* ArticleContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleContent.m; sourceTree = "<group>"; };
+		D114398DCDE142A584B80EEA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		96B24C0C197B0A5300732573 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96B24C63197D84EB00732573 /* libxml2.dylib in Frameworks */,
+				96B24C15197B0A5300732573 /* CoreGraphics.framework in Frameworks */,
+				96B24C17197B0A5300732573 /* UIKit.framework in Frameworks */,
+				96B24C13197B0A5300732573 /* Foundation.framework in Frameworks */,
+				35AE414D3557474FA7A0290A /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96B24C2D197B0A5300732573 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96B24C32197B0A5300732573 /* XCTest.framework in Frameworks */,
+				96B24C34197B0A5300732573 /* UIKit.framework in Frameworks */,
+				96B24C33197B0A5300732573 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9627B87419851F5400053D99 /* DownloadData */ = {
+			isa = PBXGroup;
+			children = (
+				96D1133D19917691002091D7 /* InfoDownloader.h */,
+				96D1133E19917691002091D7 /* InfoDownloader.m */,
+				96D1134019917C15002091D7 /* ContentController.h */,
+				96D1134119917C15002091D7 /* ContentController.m */,
+			);
+			name = DownloadData;
+			sourceTree = "<group>";
+		};
+		964CF88A19894DDD00A99709 /* HTMLParser */ = {
+			isa = PBXGroup;
+			children = (
+				96B24C5C197D83BE00732573 /* HTMLNode.h */,
+				96B24C5D197D83BE00732573 /* HTMLNode.m */,
+				96B24C5E197D83BE00732573 /* HTMLParser.h */,
+				96B24C5F197D83BE00732573 /* HTMLParser.m */,
+			);
+			name = HTMLParser;
+			sourceTree = "<group>";
+		};
+		964CF88B19894E0000A99709 /* RSSParser */ = {
+			isa = PBXGroup;
+			children = (
+				96B24C47197D0CBC00732573 /* RSSParser.h */,
+				96B24C48197D0CBC00732573 /* RSSParser.m */,
+			);
+			name = RSSParser;
+			sourceTree = "<group>";
+		};
+		964CF88D19894E7100A99709 /* ParsingSiteContent */ = {
+			isa = PBXGroup;
+			children = (
+				964CF88819894DC700A99709 /* ParseDynamoKievUa.m */,
+				964CF88719894DC700A99709 /* ParseDynamoKievUa.h */,
+			);
+			name = ParsingSiteContent;
+			sourceTree = "<group>";
+		};
+		964CF88E19894ECB00A99709 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				96B24C27197B0A5300732573 /* ViewController.h */,
+				96B24C28197B0A5300732573 /* ViewController.m */,
+				96B24C58197D7A5500732573 /* ArticleViewController.h */,
+				96B24C59197D7A5500732573 /* ArticleViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		964CF88F19894EEF00A99709 /* UIClasses */ = {
+			isa = PBXGroup;
+			children = (
+				96B24C4C197D3AF000732573 /* CustomCell.h */,
+				96B24C4D197D3AF000732573 /* CustomCell.m */,
+			);
+			name = UIClasses;
+			sourceTree = "<group>";
+		};
+		964CF8A21989501700A99709 /* SportUa */ = {
+			isa = PBXGroup;
+			children = (
+				964CF89119894FFC00A99709 /* sport_ua_news_archive.html */,
+				964CF89019894FFC00A99709 /* m_sport_ua_article.html */,
+			);
+			name = SportUa;
+			sourceTree = "<group>";
+		};
+		964CF8A31989502900A99709 /* DynamoKievUa */ = {
+			isa = PBXGroup;
+			children = (
+				964CF89219894FFC00A99709 /* dynamo_news.html */,
+				964CF89319894FFC00A99709 /* dynamo_articles.html */,
+				964CF89419894FFC00A99709 /* dynamo_article_page.html */,
+			);
+			name = DynamoKievUa;
+			sourceTree = "<group>";
+		};
+		964CF8A41989507900A99709 /* SportsRu */ = {
+			isa = PBXGroup;
+			children = (
+				964CF89619894FFC00A99709 /* sports_ru_article.html */,
+				964CF89519894FFC00A99709 /* sports_ru_nba.html */,
+			);
+			name = SportsRu;
+			sourceTree = "<group>";
+		};
+		964CF8A51989508900A99709 /* F1newsRu */ = {
+			isa = PBXGroup;
+			children = (
+				964CF89819894FFC00A99709 /* f1news_article.html */,
+				964CF89719894FFC00A99709 /* f1news_newsOfTheDay_page.html */,
+			);
+			name = F1newsRu;
+			sourceTree = "<group>";
+		};
+		96B24C06197B0A5300732573 = {
+			isa = PBXGroup;
+			children = (
+				96B24C18197B0A5300732573 /* DynamoNews */,
+				96B24C37197B0A5300732573 /* DynamoNewsTests */,
+				96B24C11197B0A5300732573 /* Frameworks */,
+				96B24C10197B0A5300732573 /* Products */,
+				D114398DCDE142A584B80EEA /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		96B24C10197B0A5300732573 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96B24C0F197B0A5300732573 /* DynamoNews.app */,
+				96B24C30197B0A5300732573 /* DynamoNewsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		96B24C11197B0A5300732573 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9627B86F1984D84400053D99 /* libPods-AFNetworking.a */,
+				96B24C62197D84EB00732573 /* libxml2.dylib */,
+				96B24C12197B0A5300732573 /* Foundation.framework */,
+				96B24C14197B0A5300732573 /* CoreGraphics.framework */,
+				96B24C16197B0A5300732573 /* UIKit.framework */,
+				96B24C31197B0A5300732573 /* XCTest.framework */,
+				2375F11BEA6C4CA58F2572F5 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		96B24C18197B0A5300732573 /* DynamoNews */ = {
+			isa = PBXGroup;
+			children = (
+				96D113431991801B002091D7 /* Model */,
+				96B24C24197B0A5300732573 /* Main.storyboard */,
+				964CF8AA1989535B00A99709 /* NSString+DeleteSpecialCharacters.h */,
+				964CF8AB1989535B00A99709 /* NSString+DeleteSpecialCharacters.m */,
+				964CF88E19894ECB00A99709 /* ViewControllers */,
+				964CF88F19894EEF00A99709 /* UIClasses */,
+				9627B87419851F5400053D99 /* DownloadData */,
+				96B24C5B197D839B00732573 /* Parsing */,
+				96B24C19197B0A5300732573 /* Supporting Files */,
+			);
+			path = DynamoNews;
+			sourceTree = "<group>";
+		};
+		96B24C19197B0A5300732573 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				96B24C21197B0A5300732573 /* AppDelegate.h */,
+				96B24C22197B0A5300732573 /* AppDelegate.m */,
+				964CF8A21989501700A99709 /* SportUa */,
+				964CF8A31989502900A99709 /* DynamoKievUa */,
+				964CF8A41989507900A99709 /* SportsRu */,
+				964CF8A51989508900A99709 /* F1newsRu */,
+				96B24C1A197B0A5300732573 /* DynamoNews-Info.plist */,
+				96B24C1B197B0A5300732573 /* InfoPlist.strings */,
+				96B24C4A197D22F800732573 /* rss20.xml */,
+				96B24C1E197B0A5300732573 /* main.m */,
+				96B24C20197B0A5300732573 /* DynamoNews-Prefix.pch */,
+				96B24C2A197B0A5300732573 /* Images.xcassets */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		96B24C37197B0A5300732573 /* DynamoNewsTests */ = {
+			isa = PBXGroup;
+			children = (
+				96B24C3D197B0A5300732573 /* DynamoNewsTests.m */,
+				96B24C38197B0A5300732573 /* Supporting Files */,
+			);
+			path = DynamoNewsTests;
+			sourceTree = "<group>";
+		};
+		96B24C38197B0A5300732573 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				96B24C39197B0A5300732573 /* DynamoNewsTests-Info.plist */,
+				96B24C3A197B0A5300732573 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		96B24C5B197D839B00732573 /* Parsing */ = {
+			isa = PBXGroup;
+			children = (
+				964CF88D19894E7100A99709 /* ParsingSiteContent */,
+				964CF88A19894DDD00A99709 /* HTMLParser */,
+				964CF88B19894E0000A99709 /* RSSParser */,
+			);
+			name = Parsing;
+			sourceTree = "<group>";
+		};
+		96D113431991801B002091D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				96D1134419918032002091D7 /* ArticleContent.h */,
+				96D1134519918032002091D7 /* ArticleContent.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		96B24C0E197B0A5300732573 /* DynamoNews */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96B24C41197B0A5400732573 /* Build configuration list for PBXNativeTarget "DynamoNews" */;
+			buildPhases = (
+				112D2C2AC8624804A6A6479C /* Check Pods Manifest.lock */,
+				96B24C0B197B0A5300732573 /* Sources */,
+				96B24C0C197B0A5300732573 /* Frameworks */,
+				96B24C0D197B0A5300732573 /* Resources */,
+				50114F079CE8402F83D7A21B /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DynamoNews;
+			productName = DynamoNews;
+			productReference = 96B24C0F197B0A5300732573 /* DynamoNews.app */;
+			productType = "com.apple.product-type.application";
+		};
+		96B24C2F197B0A5300732573 /* DynamoNewsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96B24C44197B0A5400732573 /* Build configuration list for PBXNativeTarget "DynamoNewsTests" */;
+			buildPhases = (
+				96B24C2C197B0A5300732573 /* Sources */,
+				96B24C2D197B0A5300732573 /* Frameworks */,
+				96B24C2E197B0A5300732573 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96B24C36197B0A5300732573 /* PBXTargetDependency */,
+			);
+			name = DynamoNewsTests;
+			productName = DynamoNewsTests;
+			productReference = 96B24C30197B0A5300732573 /* DynamoNewsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		96B24C07197B0A5300732573 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = AlPono.inc;
+				TargetAttributes = {
+					96B24C0E197B0A5300732573 = {
+						DevelopmentTeam = NFT7A9P537;
+					};
+					96B24C2F197B0A5300732573 = {
+						TestTargetID = 96B24C0E197B0A5300732573;
+					};
+				};
+			};
+			buildConfigurationList = 96B24C0A197B0A5300732573 /* Build configuration list for PBXProject "DynamoNews" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 96B24C06197B0A5300732573;
+			productRefGroup = 96B24C10197B0A5300732573 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				96B24C0E197B0A5300732573 /* DynamoNews */,
+				96B24C2F197B0A5300732573 /* DynamoNewsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		96B24C0D197B0A5300732573 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96B24C2B197B0A5300732573 /* Images.xcassets in Resources */,
+				96B24C1D197B0A5300732573 /* InfoPlist.strings in Resources */,
+				96B24C4B197D22F800732573 /* rss20.xml in Resources */,
+				964CF89A19894FFC00A99709 /* sport_ua_news_archive.html in Resources */,
+				964CF8A119894FFC00A99709 /* f1news_article.html in Resources */,
+				964CF8A019894FFC00A99709 /* f1news_newsOfTheDay_page.html in Resources */,
+				96B24C26197B0A5300732573 /* Main.storyboard in Resources */,
+				964CF89C19894FFC00A99709 /* dynamo_articles.html in Resources */,
+				964CF89E19894FFC00A99709 /* sports_ru_nba.html in Resources */,
+				964CF89D19894FFC00A99709 /* dynamo_article_page.html in Resources */,
+				964CF89919894FFC00A99709 /* m_sport_ua_article.html in Resources */,
+				964CF89F19894FFC00A99709 /* sports_ru_article.html in Resources */,
+				964CF89B19894FFC00A99709 /* dynamo_news.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96B24C2E197B0A5300732573 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96B24C3C197B0A5300732573 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		112D2C2AC8624804A6A6479C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		50114F079CE8402F83D7A21B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		96B24C0B197B0A5300732573 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96B24C60197D83BE00732573 /* HTMLNode.m in Sources */,
+				96D1134219917C15002091D7 /* ContentController.m in Sources */,
+				96B24C61197D83BE00732573 /* HTMLParser.m in Sources */,
+				96B24C29197B0A5300732573 /* ViewController.m in Sources */,
+				96B24C23197B0A5300732573 /* AppDelegate.m in Sources */,
+				964CF88919894DC700A99709 /* ParseDynamoKievUa.m in Sources */,
+				96D1133F19917691002091D7 /* InfoDownloader.m in Sources */,
+				96B24C1F197B0A5300732573 /* main.m in Sources */,
+				96B24C49197D0CBC00732573 /* RSSParser.m in Sources */,
+				964CF8AC1989535B00A99709 /* NSString+DeleteSpecialCharacters.m in Sources */,
+				96B24C4E197D3AF000732573 /* CustomCell.m in Sources */,
+				96B24C5A197D7A5500732573 /* ArticleViewController.m in Sources */,
+				96D1134619918032002091D7 /* ArticleContent.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96B24C2C197B0A5300732573 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96B24C3E197B0A5300732573 /* DynamoNewsTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		96B24C36197B0A5300732573 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96B24C0E197B0A5300732573 /* DynamoNews */;
+			targetProxy = 96B24C35197B0A5300732573 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		96B24C1B197B0A5300732573 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				96B24C1C197B0A5300732573 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		96B24C24197B0A5300732573 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				96B24C25197B0A5300732573 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		96B24C3A197B0A5300732573 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				96B24C3B197B0A5300732573 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		96B24C3F197B0A5400732573 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		96B24C40197B0A5400732573 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		96B24C42197B0A5400732573 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D114398DCDE142A584B80EEA /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Roman Savchuk (XDMQ5HT9DH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Roman Savchuk (XDMQ5HT9DH)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DynamoNews/DynamoNews-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
+				INFOPLIST_FILE = "DynamoNews/DynamoNews-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		96B24C43197B0A5400732573 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D114398DCDE142A584B80EEA /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Roman Savchuk (XDMQ5HT9DH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DynamoNews/DynamoNews-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
+				INFOPLIST_FILE = "DynamoNews/DynamoNews-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		96B24C45197B0A5400732573 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DynamoNews.app/DynamoNews";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DynamoNews/DynamoNews-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "DynamoNewsTests/DynamoNewsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		96B24C46197B0A5400732573 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DynamoNews.app/DynamoNews";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DynamoNews/DynamoNews-Prefix.pch";
+				INFOPLIST_FILE = "DynamoNewsTests/DynamoNewsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		96B24C0A197B0A5300732573 /* Build configuration list for PBXProject "DynamoNews" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96B24C3F197B0A5400732573 /* Debug */,
+				96B24C40197B0A5400732573 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96B24C41197B0A5400732573 /* Build configuration list for PBXNativeTarget "DynamoNews" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96B24C42197B0A5400732573 /* Debug */,
+				96B24C43197B0A5400732573 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96B24C44197B0A5400732573 /* Build configuration list for PBXNativeTarget "DynamoNewsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96B24C45197B0A5400732573 /* Debug */,
+				96B24C46197B0A5400732573 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 96B24C07197B0A5300732573 /* Project object */;
+}
