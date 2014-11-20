@@ -33,6 +33,7 @@
     if (indexPath.row + 1 == [self.content.articles count]) {
         [self.content loadNextPageUsingType:DOWNLOAD_TO_BOTTOM];
     }
+    
     if (indexPath.row == [self.content.articles count]) {
         LoadingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell"];
         [cell.activity startAnimating];
