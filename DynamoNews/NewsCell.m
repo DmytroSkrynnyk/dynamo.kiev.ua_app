@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 AlPono.inc. All rights reserved.
 //
 
-#import "CustomCell.h"
+#import "NewsCell.h"
 
-@implementation CustomCell
+@implementation NewsCell
 
 @end

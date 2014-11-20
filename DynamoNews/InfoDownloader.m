@@ -30,7 +30,7 @@ static InfoDownloader *downloader = nil;
         manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:URL];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/javascript", nil];
     }
     return  self;
 }
@@ -52,7 +52,7 @@ static InfoDownloader *downloader = nil;
                    failure:(void (^)(NSError *error))failure{
     
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:imageLink]
-                                                  cachePolicy:NSURLCacheStorageAllowed
+                                                  cachePolicy:NSURLRequestUseProtocolCachePolicy
                                               timeoutInterval:60];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -68,5 +68,4 @@ static InfoDownloader *downloader = nil;
     }];
     [operation start];
 }
-
 @end

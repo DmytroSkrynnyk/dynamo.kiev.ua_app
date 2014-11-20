@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Reachability.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (assign, nonatomic) NetworkStatus netStatus;
+@property (strong, nonatomic) Reachability *internetReachability;
+
+-(void)updateIntenetconnectionStatus:(Reachability*) curReach;
 
 @end

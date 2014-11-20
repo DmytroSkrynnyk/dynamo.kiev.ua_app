@@ -10,9 +10,28 @@
 
 @implementation AppDelegate
 
+-(void)updateIntenetconnectionStatus:(Reachability *)curReach{
+    if (self.netStatus != NotReachable && [curReach currentReachabilityStatus] == NotReachable) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"noConnection" object:nil];
+    }
+    self.netStatus = [curReach currentReachabilityStatus];
+}
+
+- (void)reachabilityChanged:(NSNotification* )note {
+    Reachability* curReach = [note object];
+    NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
+    [self updateIntenetconnectionStatus:curReach];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name:kReachabilityChangedNotification
+                                               object:nil];
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+    [_internetReachability startNotifier];
+    [self updateIntenetconnectionStatus:_internetReachability];
     return YES;
 }
 							

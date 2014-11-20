@@ -9,12 +9,11 @@
 #import "RSSParser.h"
 #import "HTMLNode.h"
 #import "HTMLParser.h"
-#import "NSString+DeleteSpecialCharacters.h"
 
 @interface RSSParser()
 @property (nonatomic, strong, readwrite) NSMutableArray *articles;
 @property (nonatomic, retain) NSString *currentElement;
-@property (nonatomic, retain) NSMutableString *description;
+//@property (nonatomic, retain) NSMutableString *description;
 @property (nonatomic, retain) NSMutableString *publishedDateString;
 @property (nonatomic, retain) NSMutableString *title;
 @property (nonatomic, retain) NSMutableDictionary *currentDic;
@@ -33,7 +32,7 @@
         _currentDic = [[NSMutableDictionary alloc] init];
     }
     if ([elementName isEqualToString:@"description"]) {
-        _description = [NSMutableString string];
+//        _description = [NSMutableString string];
     }
     if ([elementName isEqualToString:@"title"]) {
         _title = [NSMutableString string];
@@ -45,7 +44,7 @@
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
     if ([_currentElement isEqualToString:@"description"]) {
-        [_description appendString:string];
+//        [_description appendString:string];
     }
     if ([_currentElement isEqualToString:@"title"]) {
         [_title appendString:string];
@@ -57,13 +56,13 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
     if ([elementName isEqualToString:@"description"]) {
-        [_description setString:[NSString deleteSpecialCharatersInString:_description]];
-        [_currentDic setObject:_description forKey:@"description"];
+//        [_description setString:_description];
+//        [_currentDic setObject:_description forKey:@"description"];
         if (![_title isEqualToString:@"Динамо Киев от Шурика\n		"]) {
             [_articles addObject:_currentDic];
         }
         _currentDic = nil;
-        _description = nil;
+//        _description = nil;
         _publishedDateString = nil;
         _title = nil;
     }

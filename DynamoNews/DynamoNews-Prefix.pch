@@ -14,3 +14,23 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+#define NEWS_TYPE 0
+#define ARTICLE_TYPE 1
+#define BLOGS_TYPE 2
+#define BLOGS_OTHER_TYPE 3
+#define SINGLE_ARTICLE 4
+
+#define DOWNLOAD_TO_TOP 10
+#define DOWNLOAD_TO_BOTTOM -10
+
+#define UKRAINE 100
+#define CHAMPIONS_LEGUE 101
+#define EUROPA_LEGUE 102
+#define ENGLAND 103
+#define ITALY 104
+#define SPAIN 105
+#define GERMANY 106
+#define FRANCE 107
+#define UKRAINE_YOUNG 108
+#define UKRAINE_FIRST 109
