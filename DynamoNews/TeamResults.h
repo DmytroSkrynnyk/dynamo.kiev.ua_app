@@ -22,6 +22,4 @@
 @property (strong, nonatomic) NSString *imageLink;
 @property (strong, nonatomic) UIImage *image;
 
--(NSArray *)teamResultsToArray;
-
 @end

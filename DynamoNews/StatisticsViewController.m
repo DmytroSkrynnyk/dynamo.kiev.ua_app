@@ -12,7 +12,6 @@
 #import "LoadingTableViewCell.h"
 #import "MatchCenterTableViewCell.h"
 #import "MatchScoreInfo.h"
-#import "WithLabelCollectionViewCell.h"
 
 @interface StatisticsViewController ()
 @property (weak, nonatomic) IBOutlet UISegmentedControl *contentSwitcher;
