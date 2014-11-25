@@ -11,18 +11,5 @@
 
 @implementation TeamResults
 
--(NSArray *)teamResultsToArray{
-    NSArray *teamResults = [NSArray arrayWithObjects:
-                            [NSString stringWithFormat:@"%d", _position],
-                            [NSString stringWithFormat:@"%@ %@", _name, _city],
-                            [NSString stringWithFormat:@"%d", _gamesPlayed],
-                            [NSString stringWithFormat:@"%d",_wins],
-                            [NSString stringWithFormat:@"%d", _draws],
-                            [NSString stringWithFormat:@"%d", _defeats],
-                            [NSString stringWithFormat:@"%d - %d", _goalsScored, _goalsAgainst],
-                            [NSString stringWithFormat:@"%d", _points],
-                            nil];
-    return teamResults;
-}
 
 @end

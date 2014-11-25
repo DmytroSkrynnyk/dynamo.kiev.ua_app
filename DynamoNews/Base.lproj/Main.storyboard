@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RXz-DD-8MY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RXz-DD-8MY">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
@@ -1120,7 +1121,7 @@
             </objects>
             <point key="canvasLocation" x="656" y="-406"/>
         </scene>
-        <!--Article View Controller-->
+        <!--Testing View-->
         <scene sceneID="TrI-Mq-dKb">
             <objects>
                 <viewController storyboardIdentifier="ArticleView" hidesBottomBarWhenPushed="YES" id="weZ-ej-KFT" customClass="ArticleViewController" sceneMemberID="viewController">
@@ -1178,7 +1179,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="TDj-d3-Jsc">
+                    <navigationItem key="navigationItem" title="Testing View" id="TDj-d3-Jsc">
                         <barButtonItem key="rightBarButtonItem" title="Reload" id="koa-WY-vUf">
                             <connections>
                                 <action selector="manualUpdateUI:" destination="weZ-ej-KFT" id="hnv-iL-hWs"/>
