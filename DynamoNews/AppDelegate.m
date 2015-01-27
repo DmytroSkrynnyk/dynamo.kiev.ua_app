@@ -13,6 +13,7 @@
 -(void)updateIntenetconnectionStatus:(Reachability *)curReach{
     if (self.netStatus != NotReachable && [curReach currentReachabilityStatus] == NotReachable) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"noConnection" object:nil];
+        NSLog(@"no connection");
     }
     self.netStatus = [curReach currentReachabilityStatus];
 }

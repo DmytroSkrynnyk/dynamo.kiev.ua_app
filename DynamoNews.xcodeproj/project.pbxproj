@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		35AE414D3557474FA7A0290A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2375F11BEA6C4CA58F2572F5 /* libPods.a */; };
 		9603AF9A1A08EC9800DD4B8C /* TeamResults`TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9603AF991A08EC9800DD4B8C /* TeamResults`TableViewCell.m */; };
-		9621ECA119B8822E0031A4AA /* dynamo_blogs.html in Resources */ = {isa = PBXBuildFile; fileRef = 9621ECA019B8822E0031A4AA /* dynamo_blogs.html */; };
 		9621ECA419B8841F0031A4AA /* BlogsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9621ECA319B8841F0031A4AA /* BlogsTableViewCell.m */; };
 		9621ECA719B886610031A4AA /* BlogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9621ECA619B886610031A4AA /* BlogsViewController.m */; };
 		9632C36319B34D63008BA919 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9632C36219B34D63008BA919 /* SystemConfiguration.framework */; };
@@ -72,7 +71,6 @@
 		2375F11BEA6C4CA58F2572F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9603AF981A08EC9800DD4B8C /* TeamResults`TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TeamResults`TableViewCell.h"; sourceTree = "<group>"; };
 		9603AF991A08EC9800DD4B8C /* TeamResults`TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TeamResults`TableViewCell.m"; sourceTree = "<group>"; };
-		9621ECA019B8822E0031A4AA /* dynamo_blogs.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = dynamo_blogs.html; path = ../../../Desktop/dynamo_blogs.html; sourceTree = "<group>"; };
 		9621ECA219B8841F0031A4AA /* BlogsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlogsTableViewCell.h; sourceTree = "<group>"; };
 		9621ECA319B8841F0031A4AA /* BlogsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlogsTableViewCell.m; sourceTree = "<group>"; };
 		9621ECA519B886610031A4AA /* BlogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlogsViewController.h; sourceTree = "<group>"; };
@@ -269,7 +267,6 @@
 				96BB118C19DD4DE100C25289 /* Лига чемпионов.html */,
 				963F7EB219D3FC1B006FCF59 /* blog_with_voting.html */,
 				963F7EB319D3FC1B006FCF59 /* blog.html */,
-				9621ECA019B8822E0031A4AA /* dynamo_blogs.html */,
 				964CF89319894FFC00A99709 /* dynamo_articles.html */,
 				964CF89419894FFC00A99709 /* dynamo_article_page.html */,
 			);
@@ -470,7 +467,6 @@
 				963F7EB519D3FC1B006FCF59 /* blog.html in Resources */,
 				963F7EB419D3FC1B006FCF59 /* blog_with_voting.html in Resources */,
 				96B24C1D197B0A5300732573 /* InfoPlist.strings in Resources */,
-				9621ECA119B8822E0031A4AA /* dynamo_blogs.html in Resources */,
 				96B24C4B197D22F800732573 /* rss20.xml in Resources */,
 				96B24C26197B0A5300732573 /* Main.storyboard in Resources */,
 				964CF89C19894FFC00A99709 /* dynamo_articles.html in Resources */,
@@ -693,7 +689,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "DynamoNews/DynamoNews-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -718,7 +714,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "DynamoNews/DynamoNews-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

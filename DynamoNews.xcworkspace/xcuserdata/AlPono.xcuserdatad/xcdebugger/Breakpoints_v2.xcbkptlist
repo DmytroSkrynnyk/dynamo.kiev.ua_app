@@ -185,13 +185,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DynamoNews/NewsViewController.m"
-            timestampString = "434670998.666383"
+            filePath = "DynamoNews/AppDelegate.m"
+            timestampString = "438953573.557327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "-prepareForSegue:sender:"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "-reachabilityChanged:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
