@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSString *tournament;
 @property (strong, nonatomic) NSArray *homeTeamScorers;
 @property (strong, nonatomic) NSArray *guestTeamScorers;
+@property (strong, nonatomic) NSString *link;
 
 -(NSString *)description;
 

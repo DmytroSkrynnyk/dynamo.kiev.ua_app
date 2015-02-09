@@ -321,17 +321,17 @@
             for (HTMLNode *tournamentNode in tournaments) {
                 NSMutableArray *tournament = [[NSMutableArray alloc] init];
                 NSArray *matches = [tournamentNode findChildTags:@"tr"];
-                childNodeContent = [[tournamentNode findChildWithAttribute:@"class" matchingName:@"match-center__head" allowPartial:NO] contents];
+                childNodeContent = [[tournamentNode findChildWithAttribute:@"class" matchingName:@"match-center__head" allowPartial:NO] allContents];
                 childNodeContent = [childNodeContent stringByReplacingOccurrencesOfString:@"\t" withString:@""];
                 for (HTMLNode *matchNode in matches) {
                     MatchScoreInfo *match = [[MatchScoreInfo alloc] init];
                     match.tournament = childNodeContent;
-                    HTMLNode *leftTeam = [matchNode findChildWithAttribute:@"class" matchingName:@"left-team" allowPartial:NO];
-                    NSArray *content = [leftTeam findChildTags:@"a"];
-                    match.homeTeam = [(HTMLNode *)[content lastObject] contents];
-                    match.guestTeam = [[matchNode findChildWithAttribute:@"class" matchingName:@"right-team" allowPartial:NO] allContents];
-                    childNodeContent = [[matchNode findChildWithAttribute:@"class" matchingName:@"scoring" allowPartial:NO] allContents];
-                    
+                    NSArray *matchContent = [matchNode findChildrenWithAttribute:@"class" matchingName:@"news-live-link_main news-live-link_main_h22" allowPartial:NO];
+                    match.homeTeam = [[[matchContent firstObject] allContents] stringByReplacingOccurrencesOfString:@"  " withString:@" "];
+                    HTMLNode *scoreNode = [matchNode findChildTag:@"strong"];
+                    match.guestTeam = [[scoreNode nextSibling] allContents];
+                    childNodeContent = [scoreNode contents];
+                
                     if([childNodeContent rangeOfString:@"-"].location == NSNotFound){
                         childNodeContent = [childNodeContent stringByReplacingOccurrencesOfString:@" " withString:@""];
                         NSRange dashLocation = [childNodeContent rangeOfString:@":"];
@@ -342,6 +342,7 @@
                         match.homeTeamScore = -1;
                     }
                     match.date = [[matchNode findChildWithAttribute:@"class" matchingName:@"date-cell" allowPartial:NO] allContents];
+                    match.link = [[matchNode findChildOfClass:@"bl-match"] getAttributeNamed:@"href"];
                     [tournament addObject:match];
                 }
                 [content addObject:tournament];
@@ -477,7 +478,7 @@
             centralMatch.guestTeam = [teamNameNodes[1] contents];
             NSArray *teamCityNodes = [bMatch findChildrenOfClass:@"b-match__body__city"];
             centralMatch.homeTeamCity = [teamCityNodes[0] contents];
-            centralMatch.guestTeamCity = [teamCityNodes[1] contents];
+            centralMatch.guestTeamCity = [[teamCityNodes[1] contents] stringByReplacingOccurrencesOfString:@" " withString:@""];
             centralMatch.date = [[bMatch findChildOfClass:@"b-match__body-info"] contents];
             HTMLNode *teamNode = [bMatch findChildOfClass:@"b-match__body__left_pad"];
             NSString *matchScore = [[teamNode findChildWithAttribute:@"class" matchingName:@"b-counter-widg_num" allowPartial:YES] getAttributeNamed:@"class"];
@@ -621,4 +622,30 @@
     return scorersArray;
 }
 
++(void)parseMatchDetailInfoPage:(NSString *)page savingTo:(MatchScoreInfo *)match{
+    NSError *error;
+    HTMLParser *parser = [[HTMLParser alloc] initWithString:page error:&error];
+    if (error) {
+        NSLog(@"error:%@",error.description);
+    } else {
+        HTMLNode *bodyNode = [parser body];
+        HTMLNode *homeTeamGoalsNode = [[bodyNode findChildOfClass:@"b-match__body__left"] findChildOfClass:@"b-match__goals"];
+        NSArray *goalsNodes = [homeTeamGoalsNode findChildTags:@"li"];
+        NSMutableArray *scorers = [[NSMutableArray alloc] init];
+        for (HTMLNode *liNodes in goalsNodes) {
+            NSString *content = [[liNodes allContents] stringByReplacingOccurrencesOfString:@"- " withString:@""];
+            [scorers addObject:content];
+        }
+        match.homeTeamScorers = [scorers copy];
+        [scorers removeAllObjects];
+        HTMLNode *guestTeamGoalsNode = [[bodyNode findChildOfClass:@"b-match__body__right"] findChildOfClass:@"b-match__goals b-match__goals_away"];
+        goalsNodes = [guestTeamGoalsNode findChildTags:@"li"];
+        for (HTMLNode *liNodes in goalsNodes) {
+            NSString *content = [[liNodes allContents] stringByReplacingOccurrencesOfString:@"- " withString:@""];
+            [scorers addObject:content];
+        }
+        match.guestTeamScorers = [scorers copy];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MatchDetailsPrepared" object:match];
+}
 @end

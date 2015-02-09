@@ -24,9 +24,8 @@
 @property (nonatomic) NSInteger homeTeamGoalsScored;
 @property (nonatomic) NSInteger guestTeamGoalsScored;
 @property (weak, nonatomic) IBOutlet UIView *matchView;
-@property (weak, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
 
 @end
 
@@ -34,8 +33,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [_tableView setDataSource:self];
+    [_tableView setDelegate:self];
     [ContentController dowloadAndParseMatchCenterPageWithCompletionHandler:^(NSMutableArray *info) {
-        _content = info;
+        if (!info) {
+            _content = [[NSMutableArray alloc] init];
+        } else {
+            _content = info;
+        }
         [_tableView reloadData];
     } error:^(NSError *error) {
         NSLog(@"%@", error.description);
@@ -45,9 +50,17 @@
     } error:^(NSError *error) {
         NSLog(@"%@", error.description);
     }];
-  UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [self.tableView addSubview:refreshControl];
-    [refreshControl addTarget:self action:@selector(reloadContent) forControlEvents:UIControlEventValueChanged];
+    _refreshControl = [[UIRefreshControl alloc] init];
+    [_tableView addSubview:_refreshControl];
+    [_refreshControl addTarget:self action:@selector(reloadContent) forControlEvents:UIControlEventValueChanged];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMatchDetails:) name:@"MatchDetailsPrepared" object:nil];
+}
+
+-(NSMutableArray *)content{
+    if (!_content) {
+        _content = [[NSMutableArray alloc] init];
+    }
+    return _content;
 }
 -(void)updateCentralMatch:(MatchScoreInfo *)match{
     if (match) {
@@ -131,6 +144,7 @@
     [ContentController dowloadAndParseMatchCenterPageWithCompletionHandler:^(NSMutableArray *info) {
         _content = info;
         [_tableView reloadData];
+        [_refreshControl endRefreshing];
     } error:^(NSError *error) {
         NSLog(@"%@", error.description);
     }];
@@ -141,15 +155,48 @@
     }];
 }
 -(void)infoPrepared:(NSNotification *)info{
-        _content = info.object;
-        [_tableView reloadData];
-    [self.refreshControl endRefreshing];
+    _content = info.object;
+    [_tableView reloadData];
+    
+}
+
+-(void)loadDetailsForCellAtIndexPath:(NSIndexPath *)indexPath{
+    MatchCenterTableViewCell *cell = (MatchCenterTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+    [cell setSelected:NO];
+    [self setLoadingCellState:YES forCell:cell];
+    MatchScoreInfo *match = _content[indexPath.section][indexPath.row];
+    [ContentController downloadAndParseDetailsForMatch:match];
+}
+
+-(void)setLoadingCellState:(BOOL)isLoading forCell:(MatchCenterTableViewCell *)cell{
+    cell.leftTeam.hidden = isLoading;
+    cell.rightTeam.hidden = isLoading;
+    cell.score.hidden = isLoading;
+    cell.date.hidden = isLoading;
+    cell.loadingActivity.hidden = !isLoading;
+}
+
+-(void)showMatchDetails:(NSNotification *)notification{
+    MatchScoreInfo *match = notification.object;
+    NSInteger i = -1;
+    NSInteger j = -1;
+    for (NSMutableArray *array in _content) {
+        i++;
+        if ([array indexOfObject:match] != NSNotFound) {
+            j = [array indexOfObject:match];
+            break;
+        }
+    }
+    NSIndexPath *path = [NSIndexPath indexPathForRow:j inSection:i];
+    MatchCenterTableViewCell *cell = (MatchCenterTableViewCell *)[_tableView cellForRowAtIndexPath:path];
+    [self setLoadingCellState:NO forCell:cell];
+    
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [_content count];
+    return [self.content count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -157,37 +204,36 @@
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    MatchScoreInfo *firstMatchInSection = _content[0];
+    MatchScoreInfo *firstMatchInSection = [_content[section] firstObject];
     return firstMatchInSection.tournament;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self loadDetailsForCellAtIndexPath:indexPath];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_content.count == 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"No Matches"];
-        return cell;
+    MatchScoreInfo *match = _content[indexPath.section][indexPath.row];
+    MatchCenterTableViewCell *cell;
+    if (match.homeTeamScore == -1) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"EqualMatch"];
+        cell.score.text = @"- : -";
     } else {
-        MatchScoreInfo *match = _content[indexPath.section][indexPath.row];
-        MatchCenterTableViewCell *cell;
-        if (match.homeTeamScore == -1) {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"EqualMatch"];
-            cell.score.text = @"- : -";
-        } else {
-            if (match.homeTeamScore != match.guestTeamScore) {
-                if (match.homeTeamScore < match.guestTeamScore) {
-                    cell = [tableView dequeueReusableCellWithIdentifier:@"GuestTeamWon"];
-                } else {
-                    cell = [tableView dequeueReusableCellWithIdentifier:@"HomeTeamWon"];
-                }
+        if (match.homeTeamScore != match.guestTeamScore) {
+            if (match.homeTeamScore < match.guestTeamScore) {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"GuestTeamWon"];
             } else {
-                cell = [tableView dequeueReusableCellWithIdentifier:@"EqualMatch"];
+                cell = [tableView dequeueReusableCellWithIdentifier:@"HomeTeamWon"];
             }
-            cell.score.text = [NSString stringWithFormat:@"%ld - %ld", (long)match.homeTeamScore, (long)match.guestTeamScore];
+        } else {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"EqualMatch"];
         }
-        cell.leftTeam.text = match.homeTeam;
-        cell.rightTeam.text = match.guestTeam;
-        cell.date.text = match.date;
-        return cell;
+        cell.score.text = [NSString stringWithFormat:@"%ld - %ld", (long)match.homeTeamScore, (long)match.guestTeamScore];
     }
+    cell.leftTeam.text = match.homeTeam;
+    cell.rightTeam.text = match.guestTeam;
+    cell.date.text = match.date;
+    return cell;
 }
 
 @end

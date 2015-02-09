@@ -29,16 +29,22 @@
 +(void)dowloadAndParseTableForLegue:(NSString *)legue
                   completionHandler:(void(^)(NSMutableArray *))completion
                               error:(void (^)(NSError *))error;
+
 +(void)dowloadAndParseScheduleForLegue:(NSString *)legue
                      completionHandler:(void(^)(NSMutableArray *))completion
                                  error:(void (^)(NSError *))error;
+
 +(void)dowloadAndParseScorersForLegue:(NSString *)legue
                     completionHandler:(void(^)(NSMutableArray *))completion
                                 error:(void (^)(NSError *))error;
+
 +(void)dowloadAndParseMainPageWithCompletionHandler:(void(^)(MatchScoreInfo *))completion
                                               error:(void (^)(NSError *))error;
+
 +(void)dowloadAndParseTableAndCalendarForLeague:(NSString *)league
                               completionHandler:(void(^)(NSMutableDictionary *))completion
                                           error:(void (^)(NSError *))error;
+
++(void)downloadAndParseDetailsForMatch:(MatchScoreInfo *)match;
 
 @end

@@ -44,13 +44,9 @@
         ArticleContent *temp = [self.content.articles objectAtIndex:indexPath.row];
         if (temp) {
             cell.title.text = temp.title;
-            cell.title.backgroundColor = [UIColor grayColor];
-            cell.title.alpha = 0.5;
             NSDate *pubDate = temp.publishedDate;
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
             [dateFormat setDateFormat:@"dd.MM.yy HH:mm"];
-            cell.publishedDate.backgroundColor = [UIColor grayColor];
-            cell.publishedDate.alpha = 0.5;
             cell.publishedDate.text = [dateFormat stringFromDate:pubDate];
             cell.image.image = temp.mainImage;
         }
@@ -62,7 +58,7 @@
     if (indexPath.row == [self.content.articles count]) {
         return 75;
     }
-    return 240;
+    return 220;
 }
 
 @end

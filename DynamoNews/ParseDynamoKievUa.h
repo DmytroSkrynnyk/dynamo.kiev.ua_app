@@ -22,4 +22,5 @@
 +(NSMutableArray *)parseLegueScorersPage:(NSString *)page;
 +(MatchScoreInfo *)parseCentralMatchPage:(NSString *)page;
 +(NSMutableDictionary *)parseTableAndCalendarPage:(NSString *)page;
++(void)parseMatchDetailInfoPage:(NSString *)page savingTo:(MatchScoreInfo *)match;
 @end

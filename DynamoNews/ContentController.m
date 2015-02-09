@@ -183,6 +183,14 @@
     }];
 }
 
++(void)downloadAndParseDetailsForMatch:(MatchScoreInfo *)match{
+    [[InfoDownloader createDownloaderWithBaseURL:[NSURL URLWithString:@""]] loadPageWithURL:match.link gotResponce:^(id responseObject) {
+        NSString *pageSourceCode = [[NSString alloc] initWithData:(NSData *)responseObject encoding:NSUTF8StringEncoding];
+        [ParseDynamoKievUa parseMatchDetailInfoPage:pageSourceCode savingTo:match];
+    }  failure:^(NSError *downloadError) {
+        NSLog(@"download failed");
+    }];
+}
 
 -(void)addDownloadedArticles:(NSMutableArray *)downloadedArticles withRefresh:(BOOL)refresh{
     if (self.articles.count < 10) {
