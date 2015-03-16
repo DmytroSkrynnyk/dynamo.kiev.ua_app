@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 AlPono.inc. All rights reserved.
 //
 
-#import "TeamResults`TableViewCell.h"
+#import "TeamResultsTableViewCell.h"
 
-@implementation TeamResults_TableViewCell
+@implementation TeamResultsTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code

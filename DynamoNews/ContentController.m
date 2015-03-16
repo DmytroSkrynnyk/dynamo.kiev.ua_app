@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "MatchScoreInfo.h"
 #import <AFNetworking.h>
+#import "UserComment.h"
 @implementation ContentController
 
 -(instancetype)initWithType:(NSInteger)type{
@@ -77,7 +78,6 @@
 
 -(void)downloadAndParsePageWithURL:(NSString *)pageURL
                           savingTo:(ArticleContent *)articleToDownload{
-    
     [[InfoDownloader createDownloaderWithBaseURL:[NSURL URLWithString:@"http://dynamo.kiev.ua"]] loadPageWithURL:pageURL gotResponce:^(id responseObject) {
         NSString *pageSourceCode = [[NSString alloc] initWithData:(NSData *)responseObject encoding:NSUTF8StringEncoding];
         if (_contentType == NEWS_TYPE || _contentType == ARTICLE_TYPE) {
@@ -153,8 +153,8 @@
 +(void)dowloadAndParseScorersForLegue:(NSString *)legue completionHandler:(void(^)(NSMutableArray *))completion error:(void (^)(NSError *))error{ //not ready
     [[InfoDownloader createDownloaderWithBaseURL:[NSURL URLWithString:@"http://dynamo.kiev.ua"]] loadPageWithURL:[NSString stringWithFormat:@"comp/%@/bombardiers/", legue] gotResponce:^(id responseObject) {
         NSString *pageSourceCode = [[NSString alloc] initWithData:(NSData *)responseObject encoding:NSUTF8StringEncoding];
-        NSMutableArray *tours = [ParseDynamoKievUa parseLegueScorersPage:pageSourceCode];
-        completion(tours);
+        NSMutableArray *scorers = [ParseDynamoKievUa parseLegueScorersPage:pageSourceCode];
+        completion(scorers);
     }  failure:^(NSError *downloadError) {
         error(downloadError);
         NSLog(@"download failed");
@@ -162,7 +162,7 @@
 }
 
 +(void)dowloadAndParseTableAndCalendarForLeague:(NSString *)league completionHandler:(void(^)(NSMutableDictionary *))completion error:(void (^)(NSError *))error{
-    [[InfoDownloader createDownloaderWithBaseURL:[NSURL URLWithString:@"http://dynamo.kiev.ua"]] loadPageWithURL:[NSString stringWithFormat:@"comp/%@/matches/", league] gotResponce:^(id responseObject) {
+    [[InfoDownloader createDownloaderWithBaseURL:[NSURL URLWithString:@"http://dynamo.kiev.ua"]] loadPageWithURL:[NSString stringWithFormat:@"comp/%@/14/group-stage", league] gotResponce:^(id responseObject) {
         NSString *pageSourceCode = [[NSString alloc] initWithData:(NSData *)responseObject encoding:NSUTF8StringEncoding];
         NSMutableDictionary *tableAndCalendar = [ParseDynamoKievUa parseTableAndCalendarPage:pageSourceCode];
         completion(tableAndCalendar);
@@ -189,6 +189,17 @@
         [ParseDynamoKievUa parseMatchDetailInfoPage:pageSourceCode savingTo:match];
     }  failure:^(NSError *downloadError) {
         NSLog(@"download failed");
+    }];
+}
+
++(void)dowloadAndParseCommentsForArticle:(ArticleContent *)article{
+    [[InfoDownloader createDownloaderWithBaseURL:[NSURL URLWithString:@"http://dynamo.kiev.ua"]] loadPageWithURL:[NSString stringWithFormat:@"/user/comment-list/%ld/1/%@", (long)article.ID, [article.commentsContainer nextRequestParameter]] gotResponce:^(id responseObject) {
+        
+        NSString *pageSourceCode = [[NSString alloc] initWithData:(NSData *)responseObject encoding:NSUTF8StringEncoding];
+        [ParseDynamoKievUa parseCommentsPage:pageSourceCode savingTo:article];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"CommentsDownloaded" object:nil];
+    } failure:^(NSError *error) {
+        NSLog(@"failed");
     }];
 }
 

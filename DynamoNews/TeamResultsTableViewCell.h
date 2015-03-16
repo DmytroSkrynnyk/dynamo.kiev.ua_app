@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TeamResults_TableViewCell : UITableViewCell
+@interface TeamResultsTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *position;
 @property (weak, nonatomic) IBOutlet UILabel *teamName;
 @property (weak, nonatomic) IBOutlet UILabel *teamCity;

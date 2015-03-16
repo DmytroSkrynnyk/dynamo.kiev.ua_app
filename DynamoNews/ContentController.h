@@ -47,4 +47,6 @@
 
 +(void)downloadAndParseDetailsForMatch:(MatchScoreInfo *)match;
 
++(void)dowloadAndParseCommentsForArticle:(ArticleContent *)article;
+
 @end

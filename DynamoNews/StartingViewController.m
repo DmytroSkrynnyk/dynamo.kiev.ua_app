@@ -9,26 +9,19 @@
 #import "StartingViewController.h"
 #import "NewsViewController.h"
 #import "ContentController.h"
-//temp
-#import "ParseDynamoKievUa.h"
 
 @implementation StartingViewController
 
 -(void)viewDidLoad{
     _offline = NO;
     ContentController *controller = [[ContentController alloc] initWithType:NEWS_TYPE];
-    if (!_offline) {
-        _logoImage.image = [UIImage imageNamed:@"dynamo_kiev_ua_logo"];
-        if ([controller loadNextPageUsingType:DOWNLOAD_TO_BOTTOM]) {
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMainView:) name:@"infoPrepared" object:nil];
-        } else{
-            [_loadingIndicator stopAnimating];
-            _loadingIndicator.hidden = YES;
-            _internetStatus.text = @"No internet connection";
-        }
-    } else {
-        //offline checking
-        [ParseDynamoKievUa parseTableAndCalendarPage:nil];
+    _logoImage.image = [UIImage imageNamed:@"dynamo_kiev_ua_logo"];
+    if ([controller loadNextPageUsingType:DOWNLOAD_TO_BOTTOM]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMainView:) name:@"infoPrepared" object:nil];
+    } else{
+        [_loadingIndicator stopAnimating];
+        _loadingIndicator.hidden = YES;
+        _internetStatus.text = @"No internet connection";
     }
 }
 

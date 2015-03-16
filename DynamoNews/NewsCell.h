@@ -12,4 +12,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIImageView *articleImage;
 @property (weak, nonatomic) IBOutlet UILabel *publishedDate;
+@property (weak, nonatomic) IBOutlet UILabel *commentsCounter;
+@property (weak, nonatomic) IBOutlet UIImageView *commentsCounterBackground;
+
 @end

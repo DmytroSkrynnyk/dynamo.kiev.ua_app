@@ -10,11 +10,19 @@
 #import "NewsCell.h"
 #import "LoadingTableViewCell.h"
 #import "ArticleViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface NewsViewController ()
 @end
 
 @implementation NewsViewController
+- (IBAction)showVideo:(id)sender {
+    NSURL *movieURL = [NSURL URLWithString:@"http://video.torba.com/media/videos/2015/03/01/1.mp4"];
+    
+    MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:movieURL];
+    [self presentMoviePlayerViewControllerAnimated:movieController];
+    [movieController.moviePlayer play];
+}
 
 -(void)updateUI{
 //    NSMutableArray *temp = [[NSMutableArray alloc] init];
@@ -46,13 +54,19 @@
             [dateFormat setDateFormat:@"dd.MM.yy HH:mm"];
             cell.publishedDate.text = [dateFormat stringFromDate:pubDate];
             cell.articleImage.image = temp.mainImage;
+            if (temp.commentaryCount != 0) {
+                cell.commentsCounterBackground.hidden = NO;
+                cell.commentsCounter.text = [NSString stringWithFormat:@"%ld", (long)temp.commentaryCount];
+            } else {
+                cell.commentsCounterBackground.hidden = YES;
+            }
         }
         return cell;
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.content.articles count] + 1;
+    return self.content.articles.count + 1;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -90,7 +104,7 @@
                 ArticleContent *art = [_content.articles objectAtIndex:path.row];
                 cell = (NewsCell *)[self.tableView cellForRowAtIndexPath:path];
                 for (UIView *cellView in cell.contentView.subviews) {
-                    if ([cellView isMemberOfClass:[UIImageView class]]) {
+                    if ([cellView isMemberOfClass:[UIImageView class]] && cellView.tag != 1) {
                         UIImageView *image = (UIImageView *)cellView;
                         image.image = art.mainImage;
                     }

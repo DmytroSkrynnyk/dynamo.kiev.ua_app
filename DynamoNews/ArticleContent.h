@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CommentsForArticle.h"
 
 @interface ArticleContent : NSObject
 @property (strong, nonatomic) NSString *title;
@@ -26,6 +27,12 @@
 @property (strong, nonatomic) NSString *infoSource;
 @property (strong, nonatomic) NSString *infoSourceURL;
 
+@property (strong, nonatomic) CommentsForArticle *commentsContainer;
+@property (nonatomic) NSInteger commentaryCount;
+
 -(NSString *)description;
+//-(instancetype)init;
+
+
 
 @end

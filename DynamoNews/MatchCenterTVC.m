@@ -24,9 +24,15 @@
 @property (nonatomic) NSInteger homeTeamGoalsScored;
 @property (nonatomic) NSInteger guestTeamGoalsScored;
 @property (weak, nonatomic) IBOutlet UIView *matchView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *matchesLoadingActivityIndicator;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *centralMatchLoadingActivity;
+
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (strong, nonatomic) NSIndexPath *lastSelectedCell;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *centralMatchHieght;
+@property (weak, nonatomic) IBOutlet UILabel *noMatchesLabel;
+@property (nonatomic) BOOL isCentralMatchLoaded;
 @end
 
 @implementation MatchCenterTVC
@@ -35,17 +41,15 @@
     [super viewDidLoad];
     [_tableView setDataSource:self];
     [_tableView setDelegate:self];
+    _isCentralMatchLoaded = NO;
     [ContentController dowloadAndParseMatchCenterPageWithCompletionHandler:^(NSMutableArray *info) {
-        if (!info) {
-            _content = [[NSMutableArray alloc] init];
-        } else {
-            _content = info;
-        }
-        [_tableView reloadData];
+        self.content = info;
+        [self updateMatchTable];
     } error:^(NSError *error) {
         NSLog(@"%@", error.description);
     }];
     [ContentController dowloadAndParseMainPageWithCompletionHandler:^(MatchScoreInfo *match) {
+        _isCentralMatchLoaded = YES;
         [self updateCentralMatch:match];
     } error:^(NSError *error) {
         NSLog(@"%@", error.description);
@@ -62,11 +66,27 @@
     }
     return _content;
 }
+
+-(void)updateMatchTable{
+    if (_content.count != 0) {
+        [_tableView reloadData];
+        _tableView.hidden = NO;
+    } else {
+        _noMatchesLabel.hidden = NO;
+    }
+    [_matchesLoadingActivityIndicator stopAnimating];
+    if (_isCentralMatchLoaded == NO) {
+        _centralMatchHieght.constant = 22;
+        _centralMatchLoadingActivity.hidden = NO;
+        [_centralMatchLoadingActivity startAnimating];
+    }
+
+}
+
 -(void)updateCentralMatch:(MatchScoreInfo *)match{
     if (match) {
-//        match.homeTeamScorers =  [NSArray arrayWithObjects:@"10' ffffdfsfsdjjjjjjjjj", @"22'fwsdfsjdf", @"33' fdffwfetrhrthrt", nil];
         _homeTeamGoalsScored = match.homeTeamScore;
-        _guestTeamGoalsScored = 0;//match.guestTeamScore;
+        _guestTeamGoalsScored = match.guestTeamScore;
         _tournament.text = match.tournament;
         _homeTeam.text = match.homeTeam;
         _homeTeamCity.text = match.homeTeamCity;
@@ -78,77 +98,78 @@
         } else {
             _score.text = [NSString stringWithFormat:@"%ld : %ld",(long)_homeTeamGoalsScored, (long)_guestTeamGoalsScored];
         }
+        
         [self addHomeTeamScorersLabel:match.homeTeamScorers];
         [self addGuestTeamScorersLabel:match.guestTeamScorers];
+        NSInteger multiplier;
+        if (_homeTeamGoalsScored == -1) {
+            multiplier = 0;
+        } else {
+            multiplier = _homeTeamGoalsScored > _guestTeamGoalsScored ? _homeTeamGoalsScored : _guestTeamGoalsScored;
+        }
+        [_centralMatchLoadingActivity stopAnimating];
+        _centralMatchHieght.constant = 99 + 15 * multiplier;
+        [self hideCentralMatchView:NO];
     }
-//    CGRect noGoalsMatchViewFrame = _matchView.frame;
-//    noGoalsMatchViewFrame.size.height = 50;
-//    [_matchView setFrame:noGoalsMatchViewFrame];
-    [self hideCentralMatchView:NO];
-    [self noGoalsCentralMatchUIposition];
 }
 -(void)hideCentralMatchView:(BOOL)hide{
     NSArray *matchSubviews =  self.matchView.subviews;
     for (UIView *view in matchSubviews) {
         if ([view isKindOfClass:[UIActivityIndicatorView class]]) {
-            UIActivityIndicatorView *activity =  (UIActivityIndicatorView *)view;
+            UIActivityIndicatorView *activity = (UIActivityIndicatorView *) view;
             activity.hidden = !hide;
         } else {
             view.hidden = hide;
         }
+        
     }
 }
 
 -(void)addHomeTeamScorersLabel:(NSArray *)scorers{
     if (_homeTeamGoalsScored > 0) {
-        NSInteger yPosition = 79;
+        NSInteger yPosition = 80;
         for (NSString *scorer in scorers) {
-            CGRect scrorerLabelPosition = CGRectMake(8, yPosition, 111, 21);
+            CGRect scrorerLabelPosition = CGRectMake(0, yPosition, _tableView.bounds.size.width / 2 - 33, 15);
             UILabel *scorerLabel = [[UILabel alloc] initWithFrame:scrorerLabelPosition];
             scorerLabel.text = scorer;
             scorerLabel.textAlignment = NSTextAlignmentRight;
-            scorerLabel.font = [UIFont fontWithName:@"System" size:5];
+            scorerLabel.font = [UIFont systemFontOfSize:12.0];
             [_matchView addSubview:scorerLabel];
-            yPosition += 16;
+            yPosition += 15;
         }
     }
 }
 
 -(void)addGuestTeamScorersLabel:(NSArray *)scorers{
     if (_guestTeamGoalsScored > 0) {
-        NSInteger yPosition = 79;
+        NSInteger yPosition = 80;
         for (NSString *scorer in scorers) {
-            CGRect scrorerLabelPosition = CGRectMake(201, yPosition, 111, 21);
+            CGRect scrorerLabelPosition = CGRectMake(_tableView.bounds.size.width / 2 + 33, yPosition, 111, 15);
             UILabel *scorerLabel = [[UILabel alloc] initWithFrame:scrorerLabelPosition];
             scorerLabel.text = scorer;
-            scorerLabel.font = [UIFont fontWithName:scorerLabel.font.familyName size:5];
+            scorerLabel.font = [UIFont systemFontOfSize:12.0];
             [_matchView addSubview:scorerLabel];
-            yPosition += 16;
+            yPosition += 15;
         }
     }
 }
 
-
--(void)noGoalsCentralMatchUIposition{
-    if (_homeTeamGoalsScored < 1 && _guestTeamGoalsScored < 1) {
-        CGRect noGoalsFrame = _date.frame;
-        noGoalsFrame.origin.y = 80;
-        [_date setFrame:noGoalsFrame];
-        noGoalsFrame = _matchView.frame;
-        noGoalsFrame.size.height = 180;
-        [_matchView setFrame:noGoalsFrame];
-    }
-
-}
 -(void)reloadContent{
+    _isCentralMatchLoaded = NO;
     [ContentController dowloadAndParseMatchCenterPageWithCompletionHandler:^(NSMutableArray *info) {
         _content = info;
         [_tableView reloadData];
         [_refreshControl endRefreshing];
+        if (_isCentralMatchLoaded == NO) {
+            [self hideCentralMatchView:YES];
+            _centralMatchLoadingActivity.hidden = NO;
+            [_centralMatchLoadingActivity startAnimating];
+        }
     } error:^(NSError *error) {
         NSLog(@"%@", error.description);
     }];
     [ContentController dowloadAndParseMainPageWithCompletionHandler:^(MatchScoreInfo *match) {
+        _isCentralMatchLoaded = YES;
         [self updateCentralMatch:match];
     } error:^(NSError *error) {
         NSLog(@"%@", error.description);
@@ -156,13 +177,13 @@
 }
 -(void)infoPrepared:(NSNotification *)info{
     _content = info.object;
+    
     [_tableView reloadData];
     
 }
 
 -(void)loadDetailsForCellAtIndexPath:(NSIndexPath *)indexPath{
     MatchCenterTableViewCell *cell = (MatchCenterTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
-    [cell setSelected:NO];
     [self setLoadingCellState:YES forCell:cell];
     MatchScoreInfo *match = _content[indexPath.section][indexPath.row];
     [ContentController downloadAndParseDetailsForMatch:match];
@@ -174,23 +195,33 @@
     cell.score.hidden = isLoading;
     cell.date.hidden = isLoading;
     cell.loadingActivity.hidden = !isLoading;
+    isLoading ? [cell.loadingActivity startAnimating] : [cell.loadingActivity stopAnimating];
 }
 
 -(void)showMatchDetails:(NSNotification *)notification{
     MatchScoreInfo *match = notification.object;
-    NSInteger i = -1;
-    NSInteger j = -1;
-    for (NSMutableArray *array in _content) {
-        i++;
-        if ([array indexOfObject:match] != NSNotFound) {
-            j = [array indexOfObject:match];
-            break;
-        }
-    }
-    NSIndexPath *path = [NSIndexPath indexPathForRow:j inSection:i];
-    MatchCenterTableViewCell *cell = (MatchCenterTableViewCell *)[_tableView cellForRowAtIndexPath:path];
+    MatchCenterTableViewCell *cell = (MatchCenterTableViewCell *)[_tableView cellForRowAtIndexPath:_lastSelectedCell];
     [self setLoadingCellState:NO forCell:cell];
-    
+    [cell.loadingActivity stopAnimating];
+    for (NSInteger i = 1; i <= match.homeTeamScorers.count; i++) {
+        UILabel *goalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 11 + 15 * i, 120, 14)];
+        goalLabel.textAlignment = NSTextAlignmentRight;
+        goalLabel.font = [UIFont systemFontOfSize:10];
+        goalLabel.text = match.homeTeamScorers[i - 1];
+        goalLabel.tag = 1;
+        [cell addSubview:goalLabel];
+    }
+    for (NSInteger i = 1; i <= match.guestTeamScorers.count; i++) {
+        UILabel *goalLabel = [[UILabel alloc] initWithFrame:CGRectMake(161, 11 + 15 * i, 159, 14)];
+        goalLabel.textAlignment = NSTextAlignmentLeft;
+        goalLabel.font = [UIFont systemFontOfSize:10];
+        goalLabel.text = match.guestTeamScorers[i - 1];
+        goalLabel.tag = 1;
+        [cell addSubview:goalLabel];
+    }
+    cell.userInteractionEnabled = NO;
+    _tableView.allowsSelection = YES;
+    [_tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -208,8 +239,26 @@
     return firstMatchInSection.tournament;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    MatchScoreInfo *match = _content[indexPath.section][indexPath.row];
+    if (match.homeTeamScorers.count != 0 || match.guestTeamScorers.count != 0) {
+        NSInteger multiplier = match.homeTeamScorers.count > match.guestTeamScorers.count ? match.homeTeamScorers.count : match.guestTeamScorers.count;
+        return 33 + 15 * multiplier;
+    }
+    return 35;
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self loadDetailsForCellAtIndexPath:indexPath];
+    _lastSelectedCell = indexPath;
+    MatchScoreInfo *match = _content[indexPath.section][indexPath.row];
+    if (match.homeTeamScorers || match.guestTeamScorers) {
+        [self showMatchDetails:[[NSNotification alloc] initWithName:@"MatchDetailsPrepared" object:match userInfo:nil]];
+    } else {
+        [self loadDetailsForCellAtIndexPath:indexPath];
+        _tableView.allowsSelection = NO;
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -218,6 +267,7 @@
     if (match.homeTeamScore == -1) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"EqualMatch"];
         cell.score.text = @"- : -";
+        cell.userInteractionEnabled = NO;
     } else {
         if (match.homeTeamScore != match.guestTeamScore) {
             if (match.homeTeamScore < match.guestTeamScore) {
@@ -227,13 +277,26 @@
             }
         } else {
             cell = [tableView dequeueReusableCellWithIdentifier:@"EqualMatch"];
+            cell.userInteractionEnabled = !(match.homeTeamScore == 0);
         }
         cell.score.text = [NSString stringWithFormat:@"%ld - %ld", (long)match.homeTeamScore, (long)match.guestTeamScore];
     }
     cell.leftTeam.text = match.homeTeam;
     cell.rightTeam.text = match.guestTeam;
     cell.date.text = match.date;
+//    if (match.homeTeamScorers.count == 0 && match.guestTeamScorers.count == 0) {
+//        for (UIView *subview in cell.subviews) {
+//            if (subview.tag == 1) {
+//                [subview removeFromSuperview];
+//            }
+//        }
+//    } else {
+//        NSNotification *notify = [[NSNotification alloc] initWithName:@"MatchDetailsPrepared" object:match userInfo:nil];
+//        [self showMatchDetails:notify];
+//    }
+//    
+    
+    cell.loadingActivity.hidden = YES;
     return cell;
 }
-
 @end

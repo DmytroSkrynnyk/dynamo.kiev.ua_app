@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface PlayerStats : NSObject
-@property (strong, nonatomic) NSString *nameAndTeam;
+@property (strong, nonatomic) NSString *name;
 @property (nonatomic) NSInteger goalsScored;
 @property (nonatomic) NSInteger homeGoals;
-@property (nonatomic) NSInteger awayGoals;
+@property (nonatomic) NSInteger guestGoals;
 @property (nonatomic) NSInteger penaltyScored;
+@property (strong, nonatomic) NSString *team;
 @end

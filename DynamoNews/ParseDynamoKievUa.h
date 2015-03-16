@@ -23,4 +23,5 @@
 +(MatchScoreInfo *)parseCentralMatchPage:(NSString *)page;
 +(NSMutableDictionary *)parseTableAndCalendarPage:(NSString *)page;
 +(void)parseMatchDetailInfoPage:(NSString *)page savingTo:(MatchScoreInfo *)match;
++(void)parseCommentsPage:(NSString *)page savingTo:(ArticleContent *)article;
 @end

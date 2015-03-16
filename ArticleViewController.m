@@ -8,6 +8,7 @@
 
 #import "ArticleViewController.h"
 #import "ArticleContent.h"
+#import "CommentsViewController.h"
 
 @implementation ArticleViewController
 
@@ -36,7 +37,7 @@
     _mainImage.image = _content.mainImage;
     _body.attributedText = _content.attributedContent;
     _ID.text = [NSString stringWithFormat:@"%lu", (unsigned long)_content.ID];
-    [self.view setNeedsDisplay];
+//    [self.view setNeedsDisplay];
 }
 
 -(void)setContent:(ArticleContent *)content{
@@ -65,5 +66,18 @@
     _mainImage.hidden = show;
     _body.hidden = show;
     _ID.hidden = show;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"CommentsView"]) {
+        if ([segue.destinationViewController isKindOfClass:[CommentsViewController class]]) {
+            CommentsViewController *cvc = (CommentsViewController *)segue.destinationViewController;
+            
+            cvc.articleToShow = _content;
+            
+            [cvc prepareContent];
+            
+        }
+    }
 }
 @end

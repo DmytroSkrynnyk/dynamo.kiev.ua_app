@@ -56,6 +56,16 @@
             [dateFormat setDateFormat:@"dd.MM.yy HH:mm"];
             cell.date.text = [dateFormat stringFromDate:pubDate];
             cell.author.text = temp.userName;
+            if (temp.commentaryCount != 0) {
+                cell.commentsCounterBackground.hidden = NO;
+                cell.commentsCounter.hidden = NO;
+                cell.commentsCounter.text = [NSString stringWithFormat:@"%ld", (long)temp.commentaryCount];
+                cell.commentsIconPosition.constant = 8;
+            } else {
+                cell.commentsCounterBackground.hidden = YES;
+                cell.commentsCounter.hidden = YES;
+                cell.commentsIconPosition.constant = -22;
+            }
         }
         return cell;
     }

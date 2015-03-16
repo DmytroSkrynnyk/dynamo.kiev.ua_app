@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		35AE414D3557474FA7A0290A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2375F11BEA6C4CA58F2572F5 /* libPods.a */; };
-		9603AF9A1A08EC9800DD4B8C /* TeamResults`TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9603AF991A08EC9800DD4B8C /* TeamResults`TableViewCell.m */; };
+		9603AF9A1A08EC9800DD4B8C /* TeamResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9603AF991A08EC9800DD4B8C /* TeamResultsTableViewCell.m */; };
+		961E25F91A9968F7001CF420 /* SImpleContentElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 961E25F81A9968F7001CF420 /* SImpleContentElement.m */; };
 		9621ECA419B8841F0031A4AA /* BlogsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9621ECA319B8841F0031A4AA /* BlogsTableViewCell.m */; };
 		9621ECA719B886610031A4AA /* BlogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9621ECA619B886610031A4AA /* BlogsViewController.m */; };
 		9632C36319B34D63008BA919 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9632C36219B34D63008BA919 /* SystemConfiguration.framework */; };
@@ -17,14 +18,18 @@
 		9639651819D77EC00071D207 /* MatchCenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9639651719D77EC00071D207 /* MatchCenterTableViewCell.m */; };
 		963F7EB419D3FC1B006FCF59 /* blog_with_voting.html in Resources */ = {isa = PBXBuildFile; fileRef = 963F7EB219D3FC1B006FCF59 /* blog_with_voting.html */; };
 		963F7EB519D3FC1B006FCF59 /* blog.html in Resources */ = {isa = PBXBuildFile; fileRef = 963F7EB319D3FC1B006FCF59 /* blog.html */; };
+		9641BA301A9014B100E060E6 /* UserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9641BA2F1A9014B100E060E6 /* UserComment.m */; };
+		9645ED4E1A9981D500D44AB8 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9645ED4D1A9981D500D44AB8 /* MediaPlayer.framework */; };
+		964BDDB41A93EEBA0085C358 /* CommentsForArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 964BDDB31A93EEBA0085C358 /* CommentsForArticle.m */; };
 		964CF88919894DC700A99709 /* ParseDynamoKievUa.m in Sources */ = {isa = PBXBuildFile; fileRef = 964CF88819894DC700A99709 /* ParseDynamoKievUa.m */; };
 		964CF89B19894FFC00A99709 /* dynamo_news.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89219894FFC00A99709 /* dynamo_news.html */; };
 		964CF89C19894FFC00A99709 /* dynamo_articles.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89319894FFC00A99709 /* dynamo_articles.html */; };
 		964CF89D19894FFC00A99709 /* dynamo_article_page.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89419894FFC00A99709 /* dynamo_article_page.html */; };
 		965ED87319A3FA2900806FA4 /* StartingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965ED87219A3FA2900806FA4 /* StartingViewController.m */; };
+		9663C9151A9033BC00CF40C4 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9663C9141A9033BC00CF40C4 /* CommentsViewController.m */; };
+		9663C9181A903ADD00CF40C4 /* CommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9663C9171A903ADD00CF40C4 /* CommentsTableViewCell.m */; };
 		9674320A19DA979700895A8C /* PlayerStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 9674320919DA979700895A8C /* PlayerStats.m */; };
 		9674321919DAB78100895A8C /* LeguesStatisticsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9674321819DAB78100895A8C /* LeguesStatisticsTVC.m */; };
-		9677469619DB3CBF00D54544 /* WithLabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9677469519DB3CBF00D54544 /* WithLabelCollectionViewCell.m */; };
 		967B907719B3BD7100D63245 /* ArticlesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967B907619B3BD7100D63245 /* ArticlesViewController.m */; };
 		967B907A19B3C06C00D63245 /* ArticlesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 967B907919B3C06C00D63245 /* ArticlesTableViewCell.m */; };
 		9699955E19D2E4E60065D437 /* LoadingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9699955D19D2E4E60065D437 /* LoadingTableViewCell.m */; };
@@ -54,6 +59,7 @@
 		96D1133F19917691002091D7 /* InfoDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1133E19917691002091D7 /* InfoDownloader.m */; };
 		96D1134219917C15002091D7 /* ContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1134119917C15002091D7 /* ContentController.m */; };
 		96D1134619918032002091D7 /* ArticleContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1134519918032002091D7 /* ArticleContent.m */; };
+		96EC90B91A897E0200441E6E /* PlayerGoalsStatsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EC90B81A897E0200441E6E /* PlayerGoalsStatsTableViewCell.m */; };
 		96EF07B519D8D33E001C8573 /* TeamResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EF07B419D8D33E001C8573 /* TeamResults.m */; };
 /* End PBXBuildFile section */
 
@@ -69,8 +75,10 @@
 
 /* Begin PBXFileReference section */
 		2375F11BEA6C4CA58F2572F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9603AF981A08EC9800DD4B8C /* TeamResults`TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TeamResults`TableViewCell.h"; sourceTree = "<group>"; };
-		9603AF991A08EC9800DD4B8C /* TeamResults`TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TeamResults`TableViewCell.m"; sourceTree = "<group>"; };
+		9603AF981A08EC9800DD4B8C /* TeamResultsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamResultsTableViewCell.h; sourceTree = "<group>"; };
+		9603AF991A08EC9800DD4B8C /* TeamResultsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamResultsTableViewCell.m; sourceTree = "<group>"; };
+		961E25F71A9968F7001CF420 /* SimpleContentElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleContentElement.h; sourceTree = "<group>"; };
+		961E25F81A9968F7001CF420 /* SImpleContentElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SImpleContentElement.m; sourceTree = "<group>"; };
 		9621ECA219B8841F0031A4AA /* BlogsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlogsTableViewCell.h; sourceTree = "<group>"; };
 		9621ECA319B8841F0031A4AA /* BlogsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlogsTableViewCell.m; sourceTree = "<group>"; };
 		9621ECA519B886610031A4AA /* BlogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlogsViewController.h; sourceTree = "<group>"; };
@@ -85,6 +93,11 @@
 		9639651719D77EC00071D207 /* MatchCenterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchCenterTableViewCell.m; sourceTree = "<group>"; };
 		963F7EB219D3FC1B006FCF59 /* blog_with_voting.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = blog_with_voting.html; sourceTree = "<group>"; };
 		963F7EB319D3FC1B006FCF59 /* blog.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = blog.html; sourceTree = "<group>"; };
+		9641BA2E1A9014B100E060E6 /* UserComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserComment.h; sourceTree = "<group>"; };
+		9641BA2F1A9014B100E060E6 /* UserComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserComment.m; sourceTree = "<group>"; };
+		9645ED4D1A9981D500D44AB8 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		964BDDB21A93EEBA0085C358 /* CommentsForArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsForArticle.h; sourceTree = "<group>"; };
+		964BDDB31A93EEBA0085C358 /* CommentsForArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsForArticle.m; sourceTree = "<group>"; };
 		964CF88719894DC700A99709 /* ParseDynamoKievUa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseDynamoKievUa.h; sourceTree = "<group>"; };
 		964CF88819894DC700A99709 /* ParseDynamoKievUa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseDynamoKievUa.m; sourceTree = "<group>"; };
 		964CF89219894FFC00A99709 /* dynamo_news.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dynamo_news.html; sourceTree = "<group>"; };
@@ -92,12 +105,14 @@
 		964CF89419894FFC00A99709 /* dynamo_article_page.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dynamo_article_page.html; sourceTree = "<group>"; };
 		965ED87119A3FA2900806FA4 /* StartingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartingViewController.h; sourceTree = "<group>"; };
 		965ED87219A3FA2900806FA4 /* StartingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartingViewController.m; sourceTree = "<group>"; };
+		9663C9131A9033BC00CF40C4 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
+		9663C9141A9033BC00CF40C4 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
+		9663C9161A903ADD00CF40C4 /* CommentsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsTableViewCell.h; sourceTree = "<group>"; };
+		9663C9171A903ADD00CF40C4 /* CommentsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsTableViewCell.m; sourceTree = "<group>"; };
 		9674320819DA979700895A8C /* PlayerStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerStats.h; sourceTree = "<group>"; };
 		9674320919DA979700895A8C /* PlayerStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerStats.m; sourceTree = "<group>"; };
 		9674321719DAB78100895A8C /* LeguesStatisticsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeguesStatisticsTVC.h; sourceTree = "<group>"; };
 		9674321819DAB78100895A8C /* LeguesStatisticsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeguesStatisticsTVC.m; sourceTree = "<group>"; };
-		9677469419DB3CBF00D54544 /* WithLabelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WithLabelCollectionViewCell.h; sourceTree = "<group>"; };
-		9677469519DB3CBF00D54544 /* WithLabelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WithLabelCollectionViewCell.m; sourceTree = "<group>"; };
 		967B907519B3BD7100D63245 /* ArticlesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticlesViewController.h; sourceTree = "<group>"; };
 		967B907619B3BD7100D63245 /* ArticlesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticlesViewController.m; sourceTree = "<group>"; };
 		967B907819B3C06C00D63245 /* ArticlesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticlesTableViewCell.h; sourceTree = "<group>"; };
@@ -144,6 +159,8 @@
 		96D1134119917C15002091D7 /* ContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentController.m; sourceTree = "<group>"; };
 		96D1134419918032002091D7 /* ArticleContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleContent.h; sourceTree = "<group>"; };
 		96D1134519918032002091D7 /* ArticleContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleContent.m; sourceTree = "<group>"; };
+		96EC90B71A897E0200441E6E /* PlayerGoalsStatsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerGoalsStatsTableViewCell.h; sourceTree = "<group>"; };
+		96EC90B81A897E0200441E6E /* PlayerGoalsStatsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerGoalsStatsTableViewCell.m; sourceTree = "<group>"; };
 		96EF07B319D8D33E001C8573 /* TeamResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamResults.h; sourceTree = "<group>"; };
 		96EF07B419D8D33E001C8573 /* TeamResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamResults.m; sourceTree = "<group>"; };
 		D114398DCDE142A584B80EEA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -154,6 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9645ED4E1A9981D500D44AB8 /* MediaPlayer.framework in Frameworks */,
 				9632C36319B34D63008BA919 /* SystemConfiguration.framework in Frameworks */,
 				96B24C63197D84EB00732573 /* libxml2.dylib in Frameworks */,
 				96B24C15197B0A5300732573 /* CoreGraphics.framework in Frameworks */,
@@ -235,6 +253,8 @@
 				9674321819DAB78100895A8C /* LeguesStatisticsTVC.m */,
 				96A89A2E19DBDDF5002AD979 /* StatisticsViewController.h */,
 				96A89A2F19DBDDF5002AD979 /* StatisticsViewController.m */,
+				9663C9131A9033BC00CF40C4 /* CommentsViewController.h */,
+				9663C9141A9033BC00CF40C4 /* CommentsViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -252,10 +272,12 @@
 				9699955D19D2E4E60065D437 /* LoadingTableViewCell.m */,
 				9639651619D77EC00071D207 /* MatchCenterTableViewCell.h */,
 				9639651719D77EC00071D207 /* MatchCenterTableViewCell.m */,
-				9677469419DB3CBF00D54544 /* WithLabelCollectionViewCell.h */,
-				9677469519DB3CBF00D54544 /* WithLabelCollectionViewCell.m */,
-				9603AF981A08EC9800DD4B8C /* TeamResults`TableViewCell.h */,
-				9603AF991A08EC9800DD4B8C /* TeamResults`TableViewCell.m */,
+				96EC90B71A897E0200441E6E /* PlayerGoalsStatsTableViewCell.h */,
+				96EC90B81A897E0200441E6E /* PlayerGoalsStatsTableViewCell.m */,
+				9603AF981A08EC9800DD4B8C /* TeamResultsTableViewCell.h */,
+				9603AF991A08EC9800DD4B8C /* TeamResultsTableViewCell.m */,
+				9663C9161A903ADD00CF40C4 /* CommentsTableViewCell.h */,
+				9663C9171A903ADD00CF40C4 /* CommentsTableViewCell.m */,
 			);
 			name = UIClasses;
 			sourceTree = "<group>";
@@ -296,6 +318,7 @@
 		96B24C11197B0A5300732573 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9645ED4D1A9981D500D44AB8 /* MediaPlayer.framework */,
 				9632C36219B34D63008BA919 /* SystemConfiguration.framework */,
 				9627B86F1984D84400053D99 /* libPods-AFNetworking.a */,
 				96B24C62197D84EB00732573 /* libxml2.dylib */,
@@ -377,6 +400,12 @@
 				96EF07B419D8D33E001C8573 /* TeamResults.m */,
 				9674320819DA979700895A8C /* PlayerStats.h */,
 				9674320919DA979700895A8C /* PlayerStats.m */,
+				9641BA2E1A9014B100E060E6 /* UserComment.h */,
+				9641BA2F1A9014B100E060E6 /* UserComment.m */,
+				964BDDB21A93EEBA0085C358 /* CommentsForArticle.h */,
+				964BDDB31A93EEBA0085C358 /* CommentsForArticle.m */,
+				961E25F71A9968F7001CF420 /* SimpleContentElement.h */,
+				961E25F81A9968F7001CF420 /* SImpleContentElement.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -528,6 +557,8 @@
 				96D1134219917C15002091D7 /* ContentController.m in Sources */,
 				9621ECA719B886610031A4AA /* BlogsViewController.m in Sources */,
 				965ED87319A3FA2900806FA4 /* StartingViewController.m in Sources */,
+				9641BA301A9014B100E060E6 /* UserComment.m in Sources */,
+				9663C9151A9033BC00CF40C4 /* CommentsViewController.m in Sources */,
 				9674321919DAB78100895A8C /* LeguesStatisticsTVC.m in Sources */,
 				967B907719B3BD7100D63245 /* ArticlesViewController.m in Sources */,
 				9674320A19DA979700895A8C /* PlayerStats.m in Sources */,
@@ -538,15 +569,18 @@
 				96B24C23197B0A5300732573 /* AppDelegate.m in Sources */,
 				9639651819D77EC00071D207 /* MatchCenterTableViewCell.m in Sources */,
 				964CF88919894DC700A99709 /* ParseDynamoKievUa.m in Sources */,
-				9677469619DB3CBF00D54544 /* WithLabelCollectionViewCell.m in Sources */,
 				9639651519D779E00071D207 /* MatchCenterTVC.m in Sources */,
 				9621ECA419B8841F0031A4AA /* BlogsTableViewCell.m in Sources */,
 				96D1133F19917691002091D7 /* InfoDownloader.m in Sources */,
 				96B24C1F197B0A5300732573 /* main.m in Sources */,
 				96B24C49197D0CBC00732573 /* RSSParser.m in Sources */,
-				9603AF9A1A08EC9800DD4B8C /* TeamResults`TableViewCell.m in Sources */,
+				964BDDB41A93EEBA0085C358 /* CommentsForArticle.m in Sources */,
+				9603AF9A1A08EC9800DD4B8C /* TeamResultsTableViewCell.m in Sources */,
 				96A89A3019DBDDF5002AD979 /* StatisticsViewController.m in Sources */,
 				96B24C4E197D3AF000732573 /* NewsCell.m in Sources */,
+				9663C9181A903ADD00CF40C4 /* CommentsTableViewCell.m in Sources */,
+				961E25F91A9968F7001CF420 /* SImpleContentElement.m in Sources */,
+				96EC90B91A897E0200441E6E /* PlayerGoalsStatsTableViewCell.m in Sources */,
 				96B24C5A197D7A5500732573 /* ArticleViewController.m in Sources */,
 				96D1134619918032002091D7 /* ArticleContent.m in Sources */,
 				96EF07B519D8D33E001C8573 /* TeamResults.m in Sources */,

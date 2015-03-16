@@ -33,7 +33,6 @@
     if (indexPath.row + 1 == [self.content.articles count]) {
         [self.content loadNextPageUsingType:DOWNLOAD_TO_BOTTOM];
     }
-    
     if (indexPath.row == [self.content.articles count]) {
         LoadingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell"];
         [cell.activity startAnimating];
@@ -49,6 +48,12 @@
             [dateFormat setDateFormat:@"dd.MM.yy HH:mm"];
             cell.publishedDate.text = [dateFormat stringFromDate:pubDate];
             cell.image.image = temp.mainImage;
+            if (temp.commentaryCount != 0) {
+                cell.commentsCounterBackground.hidden = NO;
+                cell.commentsCounter.text = [NSString stringWithFormat:@"%ld", (long)temp.commentaryCount];
+            } else {
+                cell.commentsCounterBackground.hidden = YES;
+            }
         }
         return cell;
     }
