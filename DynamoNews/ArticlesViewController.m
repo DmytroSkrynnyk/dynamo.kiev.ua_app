@@ -63,7 +63,9 @@
     if (indexPath.row == [self.content.articles count]) {
         return 75;
     }
-    return 220;
+    CGFloat cof = (self.view.bounds.size.width - 35) / 160;
+    CGFloat hieght = 120 * cof + 20;
+    return hieght;
 }
 
 @end
