@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BasicCommentsTableViewCell.h"
 
-@interface CommentsTableViewCell : UITableViewCell
+@interface CommentsTableViewCell : BasicCommentsTableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *rating;
 @property (weak, nonatomic) IBOutlet UILabel *status;
 @property (weak, nonatomic) IBOutlet UILabel *date;
-@property (weak, nonatomic) IBOutlet UILabel *content;
+//@property (weak, nonatomic) IBOutlet UILabel *content;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentPosition;
 
 @end

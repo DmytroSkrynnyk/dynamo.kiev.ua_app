@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+@class UserComment;
 
 @interface CommentsForArticle : NSObject
-
 @property (strong, nonatomic) NSMutableArray *comments;
+@property (strong, nonatomic) UserComment *bestComment;
+@property (nonatomic) NSInteger nextRequestCounter;
 @property (nonatomic) BOOL isAllCommentsLoaded;
-@property (strong, nonatomic) CommentsForArticle *bestComment;
-
 -(NSString *)nextRequestParameter;
 
 @end

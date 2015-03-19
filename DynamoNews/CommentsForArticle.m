@@ -9,19 +9,20 @@
 #import "CommentsForArticle.h"
 
 @interface CommentsForArticle ()
-@property (nonatomic) NSInteger nextRequestCounter;
+
 @end
 
 @implementation CommentsForArticle
 
--(NSString *)nextRequestParameter{
-    if (_nextRequestCounter == 0) {
-        return @"";
+-(NSString *)nextRequestParameter{//after downloading failure doesn't work
+    NSString *parameters;
+    if (self.nextRequestCounter == 0) {
+        parameters = @"";
     } else {
-        NSString *parameters = [NSString stringWithFormat:@"?offset=%ld", (long)_nextRequestCounter];
-        _nextRequestCounter += 30;
-        return parameters;
+        parameters = [NSString stringWithFormat:@"?offset=%ld", (long)self.nextRequestCounter * 30];
     }
+    _nextRequestCounter++;
+    return parameters;
 }
 
 @end

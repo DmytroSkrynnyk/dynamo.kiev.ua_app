@@ -25,6 +25,7 @@
 		964CF89B19894FFC00A99709 /* dynamo_news.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89219894FFC00A99709 /* dynamo_news.html */; };
 		964CF89C19894FFC00A99709 /* dynamo_articles.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89319894FFC00A99709 /* dynamo_articles.html */; };
 		964CF89D19894FFC00A99709 /* dynamo_article_page.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89419894FFC00A99709 /* dynamo_article_page.html */; };
+		965502681ABA1EB900265BBB /* BasicCommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 965502671ABA1EB900265BBB /* BasicCommentsTableViewCell.m */; };
 		965ED87319A3FA2900806FA4 /* StartingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965ED87219A3FA2900806FA4 /* StartingViewController.m */; };
 		9663C9151A9033BC00CF40C4 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9663C9141A9033BC00CF40C4 /* CommentsViewController.m */; };
 		9663C9181A903ADD00CF40C4 /* CommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9663C9171A903ADD00CF40C4 /* CommentsTableViewCell.m */; };
@@ -103,6 +104,8 @@
 		964CF89219894FFC00A99709 /* dynamo_news.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dynamo_news.html; sourceTree = "<group>"; };
 		964CF89319894FFC00A99709 /* dynamo_articles.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dynamo_articles.html; sourceTree = "<group>"; };
 		964CF89419894FFC00A99709 /* dynamo_article_page.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dynamo_article_page.html; sourceTree = "<group>"; };
+		965502661ABA1EB900265BBB /* BasicCommentsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicCommentsTableViewCell.h; sourceTree = "<group>"; };
+		965502671ABA1EB900265BBB /* BasicCommentsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicCommentsTableViewCell.m; sourceTree = "<group>"; };
 		965ED87119A3FA2900806FA4 /* StartingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartingViewController.h; sourceTree = "<group>"; };
 		965ED87219A3FA2900806FA4 /* StartingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartingViewController.m; sourceTree = "<group>"; };
 		9663C9131A9033BC00CF40C4 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
@@ -278,6 +281,8 @@
 				9603AF991A08EC9800DD4B8C /* TeamResultsTableViewCell.m */,
 				9663C9161A903ADD00CF40C4 /* CommentsTableViewCell.h */,
 				9663C9171A903ADD00CF40C4 /* CommentsTableViewCell.m */,
+				965502661ABA1EB900265BBB /* BasicCommentsTableViewCell.h */,
+				965502671ABA1EB900265BBB /* BasicCommentsTableViewCell.m */,
 			);
 			name = UIClasses;
 			sourceTree = "<group>";
@@ -560,6 +565,7 @@
 				9641BA301A9014B100E060E6 /* UserComment.m in Sources */,
 				9663C9151A9033BC00CF40C4 /* CommentsViewController.m in Sources */,
 				9674321919DAB78100895A8C /* LeguesStatisticsTVC.m in Sources */,
+				965502681ABA1EB900265BBB /* BasicCommentsTableViewCell.m in Sources */,
 				967B907719B3BD7100D63245 /* ArticlesViewController.m in Sources */,
 				9674320A19DA979700895A8C /* PlayerStats.m in Sources */,
 				9699955E19D2E4E60065D437 /* LoadingTableViewCell.m in Sources */,

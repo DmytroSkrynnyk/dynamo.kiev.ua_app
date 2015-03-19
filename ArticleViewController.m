@@ -72,11 +72,10 @@
     if ([segue.identifier isEqualToString:@"CommentsView"]) {
         if ([segue.destinationViewController isKindOfClass:[CommentsViewController class]]) {
             CommentsViewController *cvc = (CommentsViewController *)segue.destinationViewController;
-            
             cvc.articleToShow = _content;
-            
-            [cvc prepareContent];
-            
+            if(!_content.commentsContainer.comments.count){
+                [cvc prepareContent];
+            }
         }
     }
 }

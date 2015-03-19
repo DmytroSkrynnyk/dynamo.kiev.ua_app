@@ -31,7 +31,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     StatisticsViewController *svc = (StatisticsViewController *)segue.destinationViewController;
     svc.baseURL = sender;
-    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

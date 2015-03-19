@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ArticleContent.h"
 
-@interface CommentsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface CommentsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) ArticleContent *articleToShow;
 
 -(void)prepareContent;

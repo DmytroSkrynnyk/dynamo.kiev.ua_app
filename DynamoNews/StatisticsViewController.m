@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *positionHeaderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *teamHeaderLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivity;
+@property (weak, nonatomic) IBOutlet UIView *separatorView;
 
 @end
 
@@ -50,30 +51,26 @@
 
 -(TeamResultsTableViewCell *)createTeamResultsCellForIndexPath:(NSIndexPath *)indexPath{
     TeamResultsTableViewCell *cell;
-//    if (indexPath.row == 0) {
-//        cell = [_tableView dequeueReusableCellWithIdentifier:@"TeamResultsHead"];
-//    } else {
-        TeamResults *team;
-        if ([_baseURL isEqualToString:@"/champions-league/"] || [_baseURL isEqualToString:@"/europa-league/"]) {
-            team = _teamsResults[indexPath.section][indexPath.row];
-        } else {
-            team = _teamsResults[indexPath.row];
-        }
-        if (team.city) {
-            cell = [_tableView dequeueReusableCellWithIdentifier:@"TeamResults"];
-        } else {
-            cell = [_tableView dequeueReusableCellWithIdentifier:@"TeamResultsWithoutCity"];
-        }
-        cell.position.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row + 1];
-        cell.teamName.text = team.name;
-        cell.teamCity.text = team.city;
-        cell.gamesPlayed.text = [NSString stringWithFormat:@"%ld", (long)team.gamesPlayed];
-        cell.gamesWon.text = [NSString stringWithFormat:@"%ld", (long)team.wins];
-        cell.gamesLoosed.text = [NSString stringWithFormat:@"%ld", (long)team.defeats];
-        cell.gamesTied.text = [NSString stringWithFormat:@"%ld", (long)team.draws];
-        cell.goalsDifference.text = [NSString stringWithFormat:@"%ld - %ld", (long)team.goalsScored, (long)team.goalsAgainst];
-        cell.points.text = [NSString stringWithFormat:@"%ld", (long)team.points];
-//    }
+    TeamResults *team;
+    if ([_baseURL isEqualToString:@"/champions-league/"] || [_baseURL isEqualToString:@"/europa-league/"]) {
+        team = _teamsResults[indexPath.section][indexPath.row];
+    } else {
+        team = _teamsResults[indexPath.row];
+    }
+    if (team.city) {
+        cell = [_tableView dequeueReusableCellWithIdentifier:@"TeamResults"];
+    } else {
+        cell = [_tableView dequeueReusableCellWithIdentifier:@"TeamResultsWithoutCity"];
+    }
+    cell.position.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row + 1];
+    cell.teamName.text = team.name;
+    cell.teamCity.text = team.city;
+    cell.gamesPlayed.text = [NSString stringWithFormat:@"%ld", (long)team.gamesPlayed];
+    cell.gamesWon.text = [NSString stringWithFormat:@"%ld", (long)team.wins];
+    cell.gamesLoosed.text = [NSString stringWithFormat:@"%ld", (long)team.defeats];
+    cell.gamesTied.text = [NSString stringWithFormat:@"%ld", (long)team.draws];
+    cell.goalsDifference.text = [NSString stringWithFormat:@"%ld - %ld", (long)team.goalsScored, (long)team.goalsAgainst];
+    cell.points.text = [NSString stringWithFormat:@"%ld", (long)team.points];
     return cell;
 }
 
@@ -162,11 +159,9 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    NSLog(@"%f", _tableView.contentOffset.y);
     if (scrollView.contentOffset.y < 0) {
         _headerPosition.constant = abs(scrollView.contentOffset.y);
     }
-//    self.costraintHeigt.constant = 47 + MAX(0, -scrollView.contentOffset.y);
 }
 
 -(NSString *)groupNameInSection:(NSInteger)section{
@@ -219,11 +214,13 @@
     [super viewDidLoad];
     [_tableView setDataSource:self];
     [_tableView setDelegate:self];
+    
     if ([_baseURL isEqualToString:@"/champions-league/"] || [_baseURL isEqualToString:@"/europa-league/"]) {
         _tableviewTopPosition.constant = 0;
         _positionHeaderLabel.hidden = YES;
         _teamHeaderLabel.hidden = YES;
         _headerHieght.constant = 30;
+        _separatorView.hidden = YES;
     } else {
         _tableviewTopPosition.constant = 42;
         _headerHieght.constant = 42;
@@ -244,7 +241,7 @@
         _headerView.hidden = NO;
         _tableView.scrollEnabled = YES;
         _tableView.allowsSelection = NO;
-        
+        [_tableView reloadData];
         [self setHeaderPosition];
         
     } else if(_contentType == 1){
@@ -255,6 +252,11 @@
         _tableView.allowsSelection = YES;
         _headerView.hidden = YES;
         _tableviewTopPosition.constant = 0;
+        [_tableView reloadData];
+        if (_tours.count > _currentTour) {
+            NSIndexPath *nearestTourToPlay = [NSIndexPath indexPathForRow:0 inSection:_currentTour];
+            [_tableView scrollToRowAtIndexPath:nearestTourToPlay atScrollPosition:(UITableViewScrollPositionTop) animated:NO];
+        }
     } else if(_contentType == 2){
         if (!_scorers) {
             [self parseScorers];
@@ -263,8 +265,8 @@
         _tableView.allowsSelection = NO;
         _headerView.hidden = YES;
         _tableviewTopPosition.constant = 0;
+        [_tableView reloadData];
     }
-    [_tableView reloadData];
 }
 
 -(void)setHeaderPosition{
@@ -273,11 +275,13 @@
         _positionHeaderLabel.hidden = YES;
         _teamHeaderLabel.hidden = YES;
         _headerHieght.constant = 30;
+        _separatorView.hidden = YES;
     } else {
         _tableviewTopPosition.constant = 42;
         _headerHieght.constant = 42;
         _positionHeaderLabel.hidden = NO;
         _teamHeaderLabel.hidden = NO;
+        _separatorView.hidden = NO;
     }
 }
 
@@ -351,9 +355,5 @@
         }];
     }
 }
-
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    self.costraintHeigt.constant = 47 + MAX(0, -scrollView.contentOffset.y);;
-//}
 
 @end

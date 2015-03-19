@@ -133,8 +133,6 @@
                             }
                         }
                     }
-                    NSLog(@"%@", [node tagName]);
-                    NSLog(@"%@", [node rawContents]);
                 }
                 NSArray *pNodes = [contentNode findChildTags:@"p"];
                 NSMutableString *articleContent = [[NSMutableString alloc] init];
@@ -147,7 +145,6 @@
                     }
                 }
                 article.content = articleContent;
-                NSLog(@"");
             }
             childNodeContent = [[divIdPosts findChildWithAttribute:@"class"
                                                       matchingName:@"content"
@@ -413,7 +410,6 @@
             PlayerStats *player = [[PlayerStats alloc] init];
             NSArray *tdNodes = [node findChildTags:@"td"];
             NSString *nameAndTeam = [tdNodes[1] allContents];
-            NSLog(@"%@", nameAndTeam);
             NSRange bracketsRange = [nameAndTeam rangeOfString:@"("];
             player.name = [nameAndTeam substringToIndex:bracketsRange.location - 1];
             bracketsRange.location++;
@@ -541,46 +537,95 @@
     NSError *error;
     HTMLParser *parser = [[HTMLParser alloc] initWithString:page error:&error];
     HTMLNode *bodyNode = [parser body];
-    if (error) {
-        NSLog(@"error:%@",error.description);
+    if(!bodyNode){
+        article.commentsContainer.isAllCommentsLoaded = YES;
     } else {
-        NSArray *liNodes = [bodyNode findChildrenWithAttribute:@"class" matchingName:@"comment-level" allowPartial:YES];
-        if (liNodes.count != 0) {
-            article.commentsContainer.comments = [[NSMutableArray alloc] init];
-            NSString *temp;
-            for (HTMLNode *liNode in liNodes) {
-                UserComment *comment = [[UserComment alloc] init];
-                temp = [liNode className];
-                NSRange levelWordRange = [temp rangeOfString:@"level-"];
-                NSRange levelNumberRange = NSMakeRange(levelWordRange.location + levelWordRange.length, 1);
-                comment.level = [[temp substringWithRange:levelNumberRange] integerValue];
-                if ([liNode findChildOfClass:@"deleted"]) {
-                    comment.content = @"Комментарий удален";
-                    [article.commentsContainer.comments addObject:comment];
-                } else {
-                    comment.username = [[liNode findChildOfClass:@"user"] contents];
-                    temp = [[liNode findChildOfClass:@"comment-info"] allContents];
-                    NSRange openBracketRange = [temp rangeOfString:@"("];
-                    NSRange closeBracketRange = [temp rangeOfString:@")"];
-                    temp = [temp substringWithRange:NSMakeRange(openBracketRange.location + 1, closeBracketRange.location - openBracketRange.location - 1)];
-                    comment.username = [NSString stringWithFormat:@"%@ - %@", comment.username, temp];
-                    comment.userLink = [[liNode findChildOfClass:@"user"] getAttributeNamed:@"href"];
-                    comment.userStatus = [[liNode findChildWithAttribute:@"class" matchingName:@"js-title-name" allowPartial:YES] contents];
-                    comment.date = [[[liNode findChildOfClass:@"pull-right"] findChildTag:@"span"] contents];
-                    temp = [[liNode findChildOfClass:@"comment-content"] allContents];
-                    temp = [temp stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                    temp = [temp stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-                    temp = [temp stringByReplacingOccurrencesOfString:@"\r" withString:@"\n"];
-                    comment.content = temp;
-                    HTMLNode *tempNode = [liNode findChildWithAttribute:@"class" matchingName:@"karma" allowPartial:YES];
-                    comment.rating = [[[tempNode findChildWithAttribute:@"class" matchingName:@"rank" allowPartial:YES] contents] integerValue];
-                    
-                    [article.commentsContainer.comments addObject:comment];
+        if (error) {
+            NSLog(@"error:%@",error.description);
+        } else {
+            HTMLNode *bestCommentNode = [bodyNode findChildOfClass:@"well"];
+            if(bestCommentNode){
+                article.commentsContainer.bestComment = [[UserComment alloc] init];
+                [ParseDynamoKievUa parseCommentNode:bestCommentNode savingTo:article.commentsContainer.bestComment];
+            }
+            HTMLNode *loadCommentsNode =[bodyNode findChildWithAttribute:@"href" matchingName:@"#load-comments" allowPartial:NO];
+            if([loadCommentsNode getAttributeNamed:@"style"]){
+                article.commentsContainer.isAllCommentsLoaded = YES;
+            } else {
+                article.commentsContainer.isAllCommentsLoaded = NO;
+            }
+            NSArray *liNodes = [bodyNode findChildrenWithAttribute:@"class" matchingName:@"comment-level" allowPartial:YES];
+            NSMutableArray *newComments = [[NSMutableArray alloc] initWithArray:article.commentsContainer.comments];
+            if (liNodes.count != 0) {
+                article.commentsContainer.comments = [[NSMutableArray alloc] init];
+                NSString *temp;
+                for (HTMLNode *liNode in liNodes) {
+                    UserComment *comment = [[UserComment alloc] init];
+                    if([liNode findChildWithAttribute:@"class" matchingName:@"show-comment-link" allowPartial:NO]){
+                        comment.isHidden = YES;
+                    }
+                    temp = [liNode className];
+                    NSRange levelWordRange = [temp rangeOfString:@"level-"];
+                    NSRange levelNumberRange = NSMakeRange(levelWordRange.location + levelWordRange.length, 1);
+                    comment.level = [[temp substringWithRange:levelNumberRange] integerValue];
+                    if ([liNode findChildOfClass:@"deleted"]) {
+                        comment.content = @"Комментарий удален";
+                        comment.isDeleted = YES;
+                        [article.commentsContainer.comments addObject:comment];
+                    } else {
+                        [ParseDynamoKievUa parseCommentNode:liNode savingTo:comment];
+                        [newComments addObject:comment];
+                    }
                 }
             }
+            article.commentsContainer.comments = newComments;
         }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CommentsDownloaded" object:nil];
+}
+
++(void)parseCommentNode:(HTMLNode *)node savingTo:(UserComment *)comment{
+    NSString *temp;
+    if(!comment){
+        comment = [[UserComment alloc] init];
+    }
+    comment.username = [[node findChildOfClass:@"user"] contents];
+    
+    temp = [[node findChildOfClass:@"comment-info"] allContents];
+    NSRange openBracketRange = [temp rangeOfString:@"("];
+    NSRange closeBracketRange = [temp rangeOfString:@")"];
+    temp = [temp substringWithRange:NSMakeRange(openBracketRange.location + 1, closeBracketRange.location - openBracketRange.location - 1)];
+    if(!comment.username){
+        comment.username = temp;
+    } else {
+        comment.username = [NSString stringWithFormat:@"%@ - %@", comment.username, temp];
+    }
+    comment.userLink = [[node findChildOfClass:@"user"] getAttributeNamed:@"href"];
+    temp = [[node findChildWithAttribute:@"class" matchingName:@"js-title-name" allowPartial:YES] contents];
+    NSRange spaceRange = [temp rangeOfString:@" "];
+    if(spaceRange.location != NSNotFound){
+        comment.userStatus = [temp substringToIndex:spaceRange.location];
+    } else {
+        comment.userStatus = temp;
+    }
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    format.dateFormat = @"dd.MM.yyyy HH:mm";
+    [format setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
+    temp = [[[node findChildOfClass:@"pull-right"] findChildTag:@"span"] contents];
+    NSDate *convertationResult = [format dateFromString:temp];
+    if (convertationResult) {
+        format.dateFormat = @"dd.MM HH:mm";
+        comment.date = [format stringFromDate:convertationResult];
+    } else {
+        comment.date = temp;
+    }
+    temp = [[node findChildOfClass:@"comment-content"] allContents];
+    temp = [temp stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfString:@"\r" withString:@"\n"];
+    comment.content = temp;
+    HTMLNode *tempNode = [node findChildWithAttribute:@"class" matchingName:@"karma" allowPartial:YES];
+    comment.rating = [[[tempNode findChildWithAttribute:@"class" matchingName:@"rank" allowPartial:YES] contents] integerValue];
 }
 
 +(void)parseTableForGroupedTournamentsFromBodyNode:(HTMLNode *)bodyNode savingTo:(NSMutableDictionary *)parsingResults{

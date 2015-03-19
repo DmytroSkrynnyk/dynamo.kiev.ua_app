@@ -16,4 +16,6 @@
 @property (strong, nonatomic) NSString *userLink;
 @property (nonatomic) NSInteger rating;
 @property (nonatomic) NSInteger level;
+@property (nonatomic) BOOL isHidden;
+@property (nonatomic) BOOL isDeleted;
 @end

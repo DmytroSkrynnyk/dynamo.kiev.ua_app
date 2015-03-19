@@ -193,7 +193,13 @@
 }
 
 +(void)dowloadAndParseCommentsForArticle:(ArticleContent *)article{
-    [[InfoDownloader createDownloaderWithBaseURL:[NSURL URLWithString:@"http://dynamo.kiev.ua"]] loadPageWithURL:[NSString stringWithFormat:@"/user/comment-list/%ld/1/%@", (long)article.ID, [article.commentsContainer nextRequestParameter]] gotResponce:^(id responseObject) {
+    NSString *URL;
+    if(article.commentsContainer.nextRequestCounter == 0){
+        URL = [NSString stringWithFormat:@"/user/comments/%ld/1/%@", (long)article.ID, [article.commentsContainer nextRequestParameter]];
+    } else {
+        URL = [NSString stringWithFormat:@"/user/comment-list/%ld/1/%@", (long)article.ID, [article.commentsContainer nextRequestParameter]];
+    }
+    [[InfoDownloader createDownloaderWithBaseURL:[NSURL URLWithString:@"http://dynamo.kiev.ua"]] loadPageWithURL:URL gotResponce:^(id responseObject) {
         
         NSString *pageSourceCode = [[NSString alloc] initWithData:(NSData *)responseObject encoding:NSUTF8StringEncoding];
         [ParseDynamoKievUa parseCommentsPage:pageSourceCode savingTo:article];
