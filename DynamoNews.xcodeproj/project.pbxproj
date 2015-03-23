@@ -16,15 +16,10 @@
 		9639651219D75E9E0071D207 /* MatchScoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9639651119D75E9E0071D207 /* MatchScoreInfo.m */; };
 		9639651519D779E00071D207 /* MatchCenterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9639651419D779E00071D207 /* MatchCenterTVC.m */; };
 		9639651819D77EC00071D207 /* MatchCenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9639651719D77EC00071D207 /* MatchCenterTableViewCell.m */; };
-		963F7EB419D3FC1B006FCF59 /* blog_with_voting.html in Resources */ = {isa = PBXBuildFile; fileRef = 963F7EB219D3FC1B006FCF59 /* blog_with_voting.html */; };
-		963F7EB519D3FC1B006FCF59 /* blog.html in Resources */ = {isa = PBXBuildFile; fileRef = 963F7EB319D3FC1B006FCF59 /* blog.html */; };
 		9641BA301A9014B100E060E6 /* UserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9641BA2F1A9014B100E060E6 /* UserComment.m */; };
 		9645ED4E1A9981D500D44AB8 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9645ED4D1A9981D500D44AB8 /* MediaPlayer.framework */; };
 		964BDDB41A93EEBA0085C358 /* CommentsForArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 964BDDB31A93EEBA0085C358 /* CommentsForArticle.m */; };
 		964CF88919894DC700A99709 /* ParseDynamoKievUa.m in Sources */ = {isa = PBXBuildFile; fileRef = 964CF88819894DC700A99709 /* ParseDynamoKievUa.m */; };
-		964CF89B19894FFC00A99709 /* dynamo_news.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89219894FFC00A99709 /* dynamo_news.html */; };
-		964CF89C19894FFC00A99709 /* dynamo_articles.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89319894FFC00A99709 /* dynamo_articles.html */; };
-		964CF89D19894FFC00A99709 /* dynamo_article_page.html in Resources */ = {isa = PBXBuildFile; fileRef = 964CF89419894FFC00A99709 /* dynamo_article_page.html */; };
 		965502681ABA1EB900265BBB /* BasicCommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 965502671ABA1EB900265BBB /* BasicCommentsTableViewCell.m */; };
 		965ED87319A3FA2900806FA4 /* StartingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965ED87219A3FA2900806FA4 /* StartingViewController.m */; };
 		9663C9151A9033BC00CF40C4 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9663C9141A9033BC00CF40C4 /* CommentsViewController.m */; };
@@ -56,7 +51,6 @@
 		96B24C60197D83BE00732573 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B24C5D197D83BE00732573 /* HTMLNode.m */; };
 		96B24C61197D83BE00732573 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B24C5F197D83BE00732573 /* HTMLParser.m */; };
 		96B24C63197D84EB00732573 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B24C62197D84EB00732573 /* libxml2.dylib */; };
-		96BB118D19DD4DE100C25289 /* Лига чемпионов.html in Resources */ = {isa = PBXBuildFile; fileRef = 96BB118C19DD4DE100C25289 /* Лига чемпионов.html */; };
 		96BCA8B11ABF3A44005EBEDD /* CentralMatchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BCA8B01ABF3A44005EBEDD /* CentralMatchView.m */; };
 		96D1133F19917691002091D7 /* InfoDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1133E19917691002091D7 /* InfoDownloader.m */; };
 		96D1134219917C15002091D7 /* ContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1134119917C15002091D7 /* ContentController.m */; };
@@ -93,8 +87,6 @@
 		9639651419D779E00071D207 /* MatchCenterTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchCenterTVC.m; sourceTree = "<group>"; };
 		9639651619D77EC00071D207 /* MatchCenterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchCenterTableViewCell.h; sourceTree = "<group>"; };
 		9639651719D77EC00071D207 /* MatchCenterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchCenterTableViewCell.m; sourceTree = "<group>"; };
-		963F7EB219D3FC1B006FCF59 /* blog_with_voting.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = blog_with_voting.html; sourceTree = "<group>"; };
-		963F7EB319D3FC1B006FCF59 /* blog.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = blog.html; sourceTree = "<group>"; };
 		9641BA2E1A9014B100E060E6 /* UserComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserComment.h; sourceTree = "<group>"; };
 		9641BA2F1A9014B100E060E6 /* UserComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserComment.m; sourceTree = "<group>"; };
 		9645ED4D1A9981D500D44AB8 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -102,9 +94,6 @@
 		964BDDB31A93EEBA0085C358 /* CommentsForArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsForArticle.m; sourceTree = "<group>"; };
 		964CF88719894DC700A99709 /* ParseDynamoKievUa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseDynamoKievUa.h; sourceTree = "<group>"; };
 		964CF88819894DC700A99709 /* ParseDynamoKievUa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseDynamoKievUa.m; sourceTree = "<group>"; };
-		964CF89219894FFC00A99709 /* dynamo_news.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dynamo_news.html; sourceTree = "<group>"; };
-		964CF89319894FFC00A99709 /* dynamo_articles.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dynamo_articles.html; sourceTree = "<group>"; };
-		964CF89419894FFC00A99709 /* dynamo_article_page.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dynamo_article_page.html; sourceTree = "<group>"; };
 		965502661ABA1EB900265BBB /* BasicCommentsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicCommentsTableViewCell.h; sourceTree = "<group>"; };
 		965502671ABA1EB900265BBB /* BasicCommentsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicCommentsTableViewCell.m; sourceTree = "<group>"; };
 		965ED87119A3FA2900806FA4 /* StartingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartingViewController.h; sourceTree = "<group>"; };
@@ -156,7 +145,6 @@
 		96B24C5E197D83BE00732573 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
 		96B24C5F197D83BE00732573 /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
 		96B24C62197D84EB00732573 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		96BB118C19DD4DE100C25289 /* Лига чемпионов.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Лига чемпионов.html"; sourceTree = "<group>"; };
 		96BCA8AF1ABF3A44005EBEDD /* CentralMatchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CentralMatchView.h; sourceTree = "<group>"; };
 		96BCA8B01ABF3A44005EBEDD /* CentralMatchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CentralMatchView.m; sourceTree = "<group>"; };
 		96D1133D19917691002091D7 /* InfoDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoDownloader.h; sourceTree = "<group>"; };
@@ -292,19 +280,6 @@
 			name = UIClasses;
 			sourceTree = "<group>";
 		};
-		964CF8A31989502900A99709 /* Downloaded Pages */ = {
-			isa = PBXGroup;
-			children = (
-				964CF89219894FFC00A99709 /* dynamo_news.html */,
-				96BB118C19DD4DE100C25289 /* Лига чемпионов.html */,
-				963F7EB219D3FC1B006FCF59 /* blog_with_voting.html */,
-				963F7EB319D3FC1B006FCF59 /* blog.html */,
-				964CF89319894FFC00A99709 /* dynamo_articles.html */,
-				964CF89419894FFC00A99709 /* dynamo_article_page.html */,
-			);
-			name = "Downloaded Pages";
-			sourceTree = "<group>";
-		};
 		96B24C06197B0A5300732573 = {
 			isa = PBXGroup;
 			children = (
@@ -360,7 +335,6 @@
 			children = (
 				96B24C21197B0A5300732573 /* AppDelegate.h */,
 				96B24C22197B0A5300732573 /* AppDelegate.m */,
-				964CF8A31989502900A99709 /* Downloaded Pages */,
 				96B24C1A197B0A5300732573 /* DynamoNews-Info.plist */,
 				96B24C1B197B0A5300732573 /* InfoPlist.strings */,
 				96B24C4A197D22F800732573 /* rss20.xml */,
@@ -501,16 +475,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96BB118D19DD4DE100C25289 /* Лига чемпионов.html in Resources */,
 				96B24C2B197B0A5300732573 /* Images.xcassets in Resources */,
-				963F7EB519D3FC1B006FCF59 /* blog.html in Resources */,
-				963F7EB419D3FC1B006FCF59 /* blog_with_voting.html in Resources */,
 				96B24C1D197B0A5300732573 /* InfoPlist.strings in Resources */,
 				96B24C4B197D22F800732573 /* rss20.xml in Resources */,
 				96B24C26197B0A5300732573 /* Main.storyboard in Resources */,
-				964CF89C19894FFC00A99709 /* dynamo_articles.html in Resources */,
-				964CF89D19894FFC00A99709 /* dynamo_article_page.html in Resources */,
-				964CF89B19894FFC00A99709 /* dynamo_news.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
