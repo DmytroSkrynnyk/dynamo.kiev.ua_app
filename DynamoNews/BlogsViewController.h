@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "NewsViewController.h"
-#import "ContentController.h"
+@class ContentController;
+
 
 @interface BlogsViewController : NewsViewController <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) ContentController *footballBlogsContent;

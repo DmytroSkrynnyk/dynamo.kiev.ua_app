@@ -8,6 +8,7 @@
 
 #import "ArticleContent.h"
 #import "ContentController.h"
+#import "CommentsForArticle.h"
 
 @implementation ArticleContent
 -(void)setMainImageLink:(NSString *)mainImageLink{

@@ -8,10 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define TABLE_TYPE 50
-#define SCORERS 51
-
 @interface StatisticsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) NSString *baseURL;
-
+@property (nonatomic) BOOL isEurocups;
 @end

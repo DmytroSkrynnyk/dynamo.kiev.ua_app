@@ -13,6 +13,9 @@
 #import "MatchScoreInfo.h"
 #import <AFNetworking.h>
 #import "UserComment.h"
+#import "TeamResults.h"
+#import "ArticleContent.h"
+
 @implementation ContentController
 
 -(instancetype)initWithType:(NSInteger)type{

@@ -10,14 +10,25 @@
 
 @implementation MatchCenterTableViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
+-(void)prepareForReuse{
+    [super prepareForReuse];
+    if (self.tag == 1) {
+        for (UIView *view in self.contentView.subviews) {
+            if (view.tag == 1) {
+                [view removeFromSuperview];
+            }
+        }
+    }
+    self.userInteractionEnabled = YES;
+    [self setLoadingCellState:NO];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+-(void)setLoadingCellState:(BOOL)isLoading{
+    _leftTeam.hidden = isLoading;
+    _rightTeam.hidden = isLoading;
+    _score.hidden = isLoading;
+    _date.hidden = isLoading;
+    isLoading ? [_loadingActivity startAnimating] : [_loadingActivity stopAnimating];
 }
 
 @end

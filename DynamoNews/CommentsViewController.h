@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ArticleContent.h"
+@class ArticleContent;
 
 @interface CommentsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) ArticleContent *articleToShow;

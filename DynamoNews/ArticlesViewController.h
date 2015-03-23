@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NewsViewController.h"
-#import "ContentController.h"
+
 @interface ArticlesViewController : NewsViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

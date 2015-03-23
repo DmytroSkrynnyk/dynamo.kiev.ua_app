@@ -15,5 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *rightTeam;
 @property (weak, nonatomic) IBOutlet UILabel *date;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivity;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *scorePosition;
 
+-(void)setLoadingCellState:(BOOL)isLoading;
 @end

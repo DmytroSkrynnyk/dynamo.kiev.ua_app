@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ArticleContent.h"
+@class ArticleContent;
 
 @interface ArticleViewController : UIViewController
 //general properties
@@ -19,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *downloadingIndicator;
 //news properties
 @property (weak, nonatomic) IBOutlet UILabel *summaryLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *mainImage;
 //blogs properties
 
 -(instancetype)initWithArticle:(ArticleContent *)article;

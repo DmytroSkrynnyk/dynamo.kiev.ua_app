@@ -24,14 +24,8 @@
 @property (strong, nonatomic) NSMutableArray *scorers;
 @property (nonatomic) NSInteger contentType;
 @property (nonatomic) NSInteger currentTour;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerPosition;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerHieght;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableviewTopPosition;
-@property (weak, nonatomic) IBOutlet UIView *headerView;
-@property (weak, nonatomic) IBOutlet UILabel *positionHeaderLabel;
-@property (weak, nonatomic) IBOutlet UILabel *teamHeaderLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivity;
-@property (weak, nonatomic) IBOutlet UIView *separatorView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *eurocupsContentSwitcher;
 
 @end
 
@@ -40,9 +34,9 @@
 #pragma mark - DataSource delegate TableView methods
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(_contentType == 0){
+    if(self.contentType == 0){
         return [self createTeamResultsCellForIndexPath:indexPath];
-    } else if(_contentType == 1){
+    } else if(self.contentType == 1){
         return [self createCalendarCellForIndexPath:indexPath];
     } else{
         return [self createPlayerGoalsCellForIndexPath:indexPath];
@@ -52,7 +46,7 @@
 -(TeamResultsTableViewCell *)createTeamResultsCellForIndexPath:(NSIndexPath *)indexPath{
     TeamResultsTableViewCell *cell;
     TeamResults *team;
-    if ([_baseURL isEqualToString:@"/champions-league/"] || [_baseURL isEqualToString:@"/europa-league/"]) {
+    if (_isEurocups) {
         team = _teamsResults[indexPath.section][indexPath.row];
     } else {
         team = _teamsResults[indexPath.row];
@@ -115,32 +109,85 @@
     return cell;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    NSString *header;
-    if (_contentType == 0) {
-        if ([_baseURL isEqualToString:@"/champions-league/"] || [_baseURL isEqualToString:@"/europa-league/"]) {
-            header = [NSString stringWithFormat:@"Группа %@", [self groupNameInSection:section]];
-        }
-    }
-    if (_contentType == 1) {
-        if ([_baseURL isEqualToString:@"/champions-league/"] || [_baseURL isEqualToString:@"/europa-league/"]) {
-            header = [NSString stringWithFormat:@"Группа %@", [self groupNameInSection:section]];
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    TeamResultsTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"TeamResultsHead"];
+    if (self.contentType == 0) {
+        if (_isEurocups) {
+            [cell.position setFont:[UIFont boldSystemFontOfSize:13.0]];
+            cell.position.text = [NSString stringWithFormat:@"Группа %@", [StatisticsViewController groupNameInSection:section]];
+            cell.teamName.hidden = YES;
+            cell.backgroundColor =  [[UIColor alloc] initWithRed:0.89 green:0.89 blue:0.9 alpha:1.0];
+            
         } else {
-            header = [NSString stringWithFormat:@"%li-й тур",(long)section + 1];
+            [cell.position setFont:[UIFont systemFontOfSize:11.0]];
+            cell.position.text = @"Поз.";
+            cell.backgroundColor = [UIColor whiteColor];
+        }
+        cell.position.hidden = NO;
+        
+    }
+    if (self.contentType == 1) {
+        if (_isEurocups) {
+            [cell.position setFont:[UIFont systemFontOfSize:13.0]];
+            cell.position.text = [NSString stringWithFormat:@"Группа %@", [StatisticsViewController groupNameInSection:section]];
+        } else {
+            [cell.position setFont:[UIFont systemFontOfSize:11.0]];
+            cell.position.text = [NSString stringWithFormat:@"%li-й тур",(long)section + 1];
+        }
+        [self hideRawsHeaders:YES inCell:cell];
+        [cell.position setFont:[UIFont boldSystemFontOfSize:14.0]];
+        cell.backgroundColor =  [[UIColor alloc] initWithRed:0.89 green:0.89 blue:0.9 alpha:1.0];
+        
+    }
+    return cell;
+}
+
+-(void)hideRawsHeaders:(BOOL)hide inCell:(TeamResultsTableViewCell *)cell{
+    cell.position.hidden = !hide;
+    cell.teamName.hidden = hide;
+    cell.gamesPlayed.hidden = hide;
+    cell.gamesWon.hidden = hide;
+    cell.gamesTied.hidden = hide;
+    cell.gamesLoosed.hidden = hide;
+    cell.goalsDifference.hidden = hide;
+    cell.points.hidden = hide;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    CGFloat hieght = 1;
+    if (self.contentType == 0) {
+        if (_isEurocups) {
+            hieght = 30;
+        } else {
+            hieght = 44;
         }
     }
-    return header;
+    if (self.contentType == 1) {
+        hieght = 30;
+    }
+    return hieght;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CGFloat hieght = 44;
+    if (self.contentType == 1) {
+        MatchScoreInfo *match = _tours[indexPath.section][indexPath.row];
+        if (match.homeTeamScorers.count != 0 || match.guestTeamScorers.count != 0) {
+            NSInteger multiplier = match.homeTeamScorers.count > match.guestTeamScorers.count ? match.homeTeamScorers.count : match.guestTeamScorers.count;
+            hieght = 33 + 15 * multiplier;
+        }
+    }
+    return hieght;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (_contentType == 0) {
-        if ([_baseURL isEqualToString:@"/champions-league/"] || [_baseURL isEqualToString:@"/europa-league/"]) {
+    if (self.contentType == 0) {
+        if (_isEurocups) {
             return !_teamsResults ? 0 : [[_teamsResults objectAtIndex:section] count];
         } else {
             return !_teamsResults ? 0 : _teamsResults.count;
         }
-        
-    } else if(_contentType == 1){
+    } else if(self.contentType == 1){
         return !_tours ? 0 : [[_tours objectAtIndex:section] count];
     } else {
         return !_scorers ? 0 : _scorers.count + 1;
@@ -148,64 +195,19 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (_contentType == 0) {
-        if ([_baseURL isEqualToString:@"/champions-league/"] || [_baseURL isEqualToString:@"/europa-league/"]) {
+    if (self.contentType == 0) {
+        if (_isEurocups) {
             return !_teamsResults ? 0 : [_teamsResults count];
         } else {
             return !_teamsResults ? 0 : 1;
         }
     }
-    return _contentType == 1 ? _tours.count : 1;
+    return self.contentType == 1 ? _tours.count : 1;
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (scrollView.contentOffset.y < 0) {
-        _headerPosition.constant = abs(scrollView.contentOffset.y);
-    }
-}
-
--(NSString *)groupNameInSection:(NSInteger)section{
-    NSString *groupName;
-    switch (section) {
-        case 0:
-            groupName = @"A";
-            break;
-        case 1:
-            groupName = @"B";
-            break;
-        case 2:
-            groupName = @"C";
-            break;
-        case 3:
-            groupName = @"D";
-            break;
-        case 4:
-            groupName = @"E";
-            break;
-        case 5:
-            groupName = @"F";
-            break;
-        case 6:
-            groupName = @"G";
-            break;
-        case 7:
-            groupName = @"H";
-        case 8:
-            groupName = @"I";
-            break;
-        case 9:
-            groupName = @"J";
-            break;
-        case 10:
-            groupName = @"K";
-            break;
-        case 11:
-            groupName = @"L";
-            break;
-        default:
-            break;
-    }
-    return groupName;
++(NSString *)groupNameInSection:(NSInteger)section{
+    NSArray *groupNames = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L"];
+    return groupNames[section];
 }
 
 #pragma mark - Others
@@ -214,83 +216,73 @@
     [super viewDidLoad];
     [_tableView setDataSource:self];
     [_tableView setDelegate:self];
-    
-    if ([_baseURL isEqualToString:@"/champions-league/"] || [_baseURL isEqualToString:@"/europa-league/"]) {
-        _tableviewTopPosition.constant = 0;
-        _positionHeaderLabel.hidden = YES;
-        _teamHeaderLabel.hidden = YES;
-        _headerHieght.constant = 30;
-        _separatorView.hidden = YES;
-    } else {
-        _tableviewTopPosition.constant = 42;
-        _headerHieght.constant = 42;
-        _positionHeaderLabel.hidden = NO;
-        _teamHeaderLabel.hidden = NO;
+    if (_isEurocups) {
+        UISegmentedControl *eurocupsStageSwithcer = [[UISegmentedControl alloc] initWithItems:@[@"Группа", @"Плей-офф"]];
+        eurocupsStageSwithcer.selectedSegmentIndex = 0;
+        [eurocupsStageSwithcer addTarget:self action:@selector(switchEurocupsContent:) forControlEvents:UIControlEventValueChanged];
+        _eurocupsContentSwitcher = eurocupsStageSwithcer;
+        self.navigationItem.titleView = eurocupsStageSwithcer;
     }
     [self parseTable];
     
 }
 
+-(void)switchEurocupsContent:(id)sender{
+    UISegmentedControl *switcher = (UISegmentedControl *)sender;
+    if (switcher.selectedSegmentIndex == 0) {
+        [_contentSwitcher insertSegmentWithTitle:@"Таблица" atIndex:0 animated:YES];
+        [_contentSwitcher setSelectedSegmentIndex:0];
+    } else {
+        [_contentSwitcher removeSegmentAtIndex:0 animated:YES];
+        [_contentSwitcher setSelectedSegmentIndex:0];
+        _tableView.hidden = YES;
+        [_loadingActivity startAnimating];
+        
+        //add downloading content
+        
+        
+    }
+        [_tableView reloadData];
+}
+
 - (IBAction)switchContent:(id)sender {
     UISegmentedControl *controller = (UISegmentedControl *)sender;
     _contentType = controller.selectedSegmentIndex;
-    if (_contentType == 0) {
+    if (self.contentType == 0) {
         if (!_teamsResults) {
             [self parseTable];
         }
-        _headerView.hidden = NO;
         _tableView.scrollEnabled = YES;
         _tableView.allowsSelection = NO;
+        [_tableView scrollsToTop];
         [_tableView reloadData];
-        [self setHeaderPosition];
         
-    } else if(_contentType == 1){
+    } else if(self.contentType == 1){
         if (!_tours) {
             [self parseCalendar];
         }
         _tableView.scrollEnabled = YES;
         _tableView.allowsSelection = YES;
-        _headerView.hidden = YES;
-        _tableviewTopPosition.constant = 0;
         [_tableView reloadData];
         if (_tours.count > _currentTour) {
             NSIndexPath *nearestTourToPlay = [NSIndexPath indexPathForRow:0 inSection:_currentTour];
             [_tableView scrollToRowAtIndexPath:nearestTourToPlay atScrollPosition:(UITableViewScrollPositionTop) animated:NO];
         }
-    } else if(_contentType == 2){
+    } else if(self.contentType == 2){
         if (!_scorers) {
             [self parseScorers];
         }
         _tableView.scrollEnabled = NO;
         _tableView.allowsSelection = NO;
-        _headerView.hidden = YES;
-        _tableviewTopPosition.constant = 0;
         [_tableView reloadData];
     }
 }
 
--(void)setHeaderPosition{
-    if ([_baseURL isEqualToString:@"/champions-league/"] || [_baseURL isEqualToString:@"/europa-league/"]) {
-        _tableviewTopPosition.constant = 0;
-        _positionHeaderLabel.hidden = YES;
-        _teamHeaderLabel.hidden = YES;
-        _headerHieght.constant = 30;
-        _separatorView.hidden = YES;
-    } else {
-        _tableviewTopPosition.constant = 42;
-        _headerHieght.constant = 42;
-        _positionHeaderLabel.hidden = NO;
-        _teamHeaderLabel.hidden = NO;
-        _separatorView.hidden = NO;
-    }
-}
-
 -(void)parseTable{
-    if ([_baseURL isEqualToString:@"/champions-league/"] || [_baseURL isEqualToString:@"/europa-league/"]) {
+    if (_isEurocups) {
         [ContentController dowloadAndParseTableAndCalendarForLeague:_baseURL completionHandler:^(NSMutableDictionary *info) {
             _teamsResults = [info objectForKey:@"groupsTable"];
             _tours = [info objectForKey:@"calendar"];
-            _headerView.hidden = NO;
             [_tableView reloadData];
             [_loadingActivity stopAnimating];
             _tableView.hidden = NO;
@@ -302,7 +294,6 @@
             _currentTour = [[info lastObject] integerValue];
             [info removeLastObject];
             _teamsResults = info;
-            _headerView.hidden = NO;
             [_tableView reloadData];
             [_loadingActivity stopAnimating];
             _tableView.hidden = NO;
@@ -330,7 +321,7 @@
 -(void)parseCalendar{
     _tableView.hidden = YES;
     [_loadingActivity startAnimating];
-    if ([_baseURL isEqualToString:@"/champions-league/"] || [_baseURL isEqualToString:@"/europa-league/"]) {
+    if (_isEurocups) {
         [ContentController dowloadAndParseTableAndCalendarForLeague:_baseURL completionHandler:^(NSMutableDictionary *info) {
             _teamsResults = [info objectForKey:@"groupsTable"];
             _tours = [info objectForKey:@"calendar"];
@@ -353,6 +344,31 @@
         } error:^(NSError *error) {
             NSLog(@"%@", error.description);
         }];
+    }
+}
+
+-(NSInteger)contentType{
+    if (_eurocupsContentSwitcher.selectedSegmentIndex == 1) {
+        return _contentType + 1;
+    }
+    return _contentType;
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
     }
 }
 

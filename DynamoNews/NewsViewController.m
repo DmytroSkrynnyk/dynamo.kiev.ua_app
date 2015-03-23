@@ -10,14 +10,16 @@
 #import "NewsCell.h"
 #import "LoadingTableViewCell.h"
 #import "ArticleViewController.h"
+#import "ContentController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "ArticleContent.h"
 
 @interface NewsViewController ()
 @end
 
 @implementation NewsViewController
 - (IBAction)showVideo:(id)sender {
-    NSURL *movieURL = [NSURL URLWithString:@"http://video.torba.com/media/videos/2015/03/01/1.mp4"];
+    NSURL *movieURL = [NSURL URLWithString:@"http://video.torba.com/media/videos/2015/03/20/2003.mp4"];
     
     MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:movieURL];
     [self presentMoviePlayerViewControllerAnimated:movieController];
@@ -25,12 +27,6 @@
 }
 
 -(void)updateUI{
-//    NSMutableArray *temp = [[NSMutableArray alloc] init];
-//    for (int i = 0; i < 10; i ++) {
-//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_content.articles.count - i - 1 inSection:0];
-//        [temp addObject:indexPath];
-//    }
-//    [_table insertRowsAtIndexPaths:temp withRowAnimation:UITableViewRowAnimationBottom];
     [self.tableView reloadData];
 }
 
@@ -54,9 +50,9 @@
             [dateFormat setDateFormat:@"dd.MM.yy HH:mm"];
             cell.publishedDate.text = [dateFormat stringFromDate:pubDate];
             cell.articleImage.image = temp.mainImage;
-            if (temp.commentaryCount != 0) {
+            if (temp.commentsCount != 0) {
                 cell.commentsCounterBackground.hidden = NO;
-                cell.commentsCounter.text = [NSString stringWithFormat:@"%ld", (long)temp.commentaryCount];
+                cell.commentsCounter.text = [NSString stringWithFormat:@"%ld", (long)temp.commentsCount];
             } else {
                 cell.commentsCounterBackground.hidden = YES;
             }

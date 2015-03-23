@@ -7,7 +7,6 @@
 //
 
 #import "TeamResults.h"
-#import "ContentController.h"
 
 @implementation TeamResults
 

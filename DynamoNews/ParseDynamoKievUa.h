@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ArticleContent.h"
-#import "HTMLNode.h"
-#import "MatchScoreInfo.h"
+@class ArticleContent;
+@class HTMLNode;
+@class MatchScoreInfo;
 
 @interface ParseDynamoKievUa : NSObject
 +(NSMutableArray *)parseDynamoNewslinePage:(NSString *)page;

@@ -7,10 +7,7 @@
 //
 
 @interface StartingViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIImageView *logoImage;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *internetStatus;
-
-@property (nonatomic) BOOL offline;
 
 @end

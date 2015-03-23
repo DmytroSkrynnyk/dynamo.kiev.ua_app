@@ -13,6 +13,7 @@
 #import "TeamResults.h"
 #import "PlayerStats.h"
 #import "UserComment.h"
+#import "MatchScoreInfo.h"
 
 
 @implementation ParseDynamoKievUa
@@ -45,7 +46,7 @@
                         [children removeObjectAtIndex:i];
                     }
                 }
-                article.commentaryCount = [[[liNode findChildOfClass:@"comments"] contents] integerValue];
+                article.commentsCount = [[[liNode findChildOfClass:@"comments"] contents] integerValue];
                 for (HTMLNode *node in children) {
                     childNodeContent = [[node findChildTag:@"a"] getAttributeNamed:@"href"];
                     if (childNodeContent) {
@@ -214,7 +215,7 @@
                 NSRange idRange = NSMakeRange(childNodeContent.length - 20, 6);
                 article.ID = [[childNodeContent substringWithRange:idRange] integerValue];
             }
-            article.commentaryCount = [[commentsNode contents] integerValue];
+            article.commentsCount = [[commentsNode contents] integerValue];
             childNodeContent = [[node findChildWithAttribute:@"class" matchingName:@" post-name" allowPartial:NO] contents];
             if (childNodeContent) {
                 article.title = childNodeContent;
@@ -512,7 +513,7 @@
         goalsNodes = [guestTeamGoalsNode findChildTags:@"li"];
         match.guestTeamScorers = [self getScorerDeletingName:goalsNodes];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"MatchDetailsPrepared" object:match];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MatchDetailsPrepared" object:nil];
 }
 
 +(NSMutableArray *)getScorerDeletingName:(NSArray *)goalsNodes{

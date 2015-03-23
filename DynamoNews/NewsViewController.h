@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ContentController;
 
-
-#import "ContentController.h"
+//#import "ContentController.h"
 @interface NewsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) ContentController *content;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;

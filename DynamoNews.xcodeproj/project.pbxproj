@@ -57,6 +57,7 @@
 		96B24C61197D83BE00732573 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B24C5F197D83BE00732573 /* HTMLParser.m */; };
 		96B24C63197D84EB00732573 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B24C62197D84EB00732573 /* libxml2.dylib */; };
 		96BB118D19DD4DE100C25289 /* Лига чемпионов.html in Resources */ = {isa = PBXBuildFile; fileRef = 96BB118C19DD4DE100C25289 /* Лига чемпионов.html */; };
+		96BCA8B11ABF3A44005EBEDD /* CentralMatchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BCA8B01ABF3A44005EBEDD /* CentralMatchView.m */; };
 		96D1133F19917691002091D7 /* InfoDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1133E19917691002091D7 /* InfoDownloader.m */; };
 		96D1134219917C15002091D7 /* ContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1134119917C15002091D7 /* ContentController.m */; };
 		96D1134619918032002091D7 /* ArticleContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1134519918032002091D7 /* ArticleContent.m */; };
@@ -156,6 +157,8 @@
 		96B24C5F197D83BE00732573 /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
 		96B24C62197D84EB00732573 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		96BB118C19DD4DE100C25289 /* Лига чемпионов.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Лига чемпионов.html"; sourceTree = "<group>"; };
+		96BCA8AF1ABF3A44005EBEDD /* CentralMatchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CentralMatchView.h; sourceTree = "<group>"; };
+		96BCA8B01ABF3A44005EBEDD /* CentralMatchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CentralMatchView.m; sourceTree = "<group>"; };
 		96D1133D19917691002091D7 /* InfoDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoDownloader.h; sourceTree = "<group>"; };
 		96D1133E19917691002091D7 /* InfoDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoDownloader.m; sourceTree = "<group>"; };
 		96D1134019917C15002091D7 /* ContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentController.h; sourceTree = "<group>"; };
@@ -283,6 +286,8 @@
 				9663C9171A903ADD00CF40C4 /* CommentsTableViewCell.m */,
 				965502661ABA1EB900265BBB /* BasicCommentsTableViewCell.h */,
 				965502671ABA1EB900265BBB /* BasicCommentsTableViewCell.m */,
+				96BCA8AF1ABF3A44005EBEDD /* CentralMatchView.h */,
+				96BCA8B01ABF3A44005EBEDD /* CentralMatchView.m */,
 			);
 			name = UIClasses;
 			sourceTree = "<group>";
@@ -583,6 +588,7 @@
 				964BDDB41A93EEBA0085C358 /* CommentsForArticle.m in Sources */,
 				9603AF9A1A08EC9800DD4B8C /* TeamResultsTableViewCell.m in Sources */,
 				96A89A3019DBDDF5002AD979 /* StatisticsViewController.m in Sources */,
+				96BCA8B11ABF3A44005EBEDD /* CentralMatchView.m in Sources */,
 				96B24C4E197D3AF000732573 /* NewsCell.m in Sources */,
 				9663C9181A903ADD00CF40C4 /* CommentsTableViewCell.m in Sources */,
 				961E25F91A9968F7001CF420 /* SImpleContentElement.m in Sources */,

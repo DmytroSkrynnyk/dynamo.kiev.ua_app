@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ArticleContent.h"
-#import "TeamResults.h"
+@class ArticleContent;
+@class TeamResults;
 @class MatchScoreInfo;
 
 @interface ContentController : NSObject

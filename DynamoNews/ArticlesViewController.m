@@ -7,10 +7,10 @@
 //
 
 #import "ArticlesViewController.h"
-#import "ArticleViewController.h"
 #import "ArticlesTableViewCell.h"
 #import "LoadingTableViewCell.h"
-
+#import "ContentController.h"
+#import "ArticleContent.h"
 @interface ArticlesViewController ()
 
 
@@ -48,9 +48,9 @@
             [dateFormat setDateFormat:@"dd.MM.yy HH:mm"];
             cell.publishedDate.text = [dateFormat stringFromDate:pubDate];
             cell.image.image = temp.mainImage;
-            if (temp.commentaryCount != 0) {
+            if (temp.commentsCount != 0) {
                 cell.commentsCounterBackground.hidden = NO;
-                cell.commentsCounter.text = [NSString stringWithFormat:@"%ld", (long)temp.commentaryCount];
+                cell.commentsCounter.text = [NSString stringWithFormat:@"%ld", (long)temp.commentsCount];
             } else {
                 cell.commentsCounterBackground.hidden = YES;
             }
@@ -62,10 +62,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == [self.content.articles count]) {
         return 75;
+    } else {
+        CGFloat aspectRatio = (self.view.bounds.size.width - 35) / 160;
+        CGFloat hieght = 120 * aspectRatio + 20;
+        return hieght;
     }
-    CGFloat cof = (self.view.bounds.size.width - 35) / 160;
-    CGFloat hieght = 120 * cof + 20;
-    return hieght;
 }
 
 @end

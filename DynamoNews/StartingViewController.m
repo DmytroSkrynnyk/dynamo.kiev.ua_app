@@ -13,14 +13,11 @@
 @implementation StartingViewController
 
 -(void)viewDidLoad{
-    _offline = NO;
     ContentController *controller = [[ContentController alloc] initWithType:NEWS_TYPE];
-    _logoImage.image = [UIImage imageNamed:@"dynamo_kiev_ua_logo"];
     if ([controller loadNextPageUsingType:DOWNLOAD_TO_BOTTOM]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMainView:) name:@"infoPrepared" object:nil];
     } else{
         [_loadingIndicator stopAnimating];
-        _loadingIndicator.hidden = YES;
         _internetStatus.text = @"No internet connection";
     }
 }

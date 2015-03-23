@@ -19,6 +19,7 @@
     }
     return self;
 }
+
 - (IBAction)manualUpdateUI:(id)sender {
     [self updateUI];
 }
@@ -30,14 +31,11 @@
     } else {
         _summaryLabel.text = _content.summary;
     }
-    
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
     [dateFormat setDateFormat:@"dd.MM.yy hh:mm"];
     _dateLabel.text = [dateFormat stringFromDate:_content.publishedDate];
-    _mainImage.image = _content.mainImage;
     _body.attributedText = _content.attributedContent;
     _ID.text = [NSString stringWithFormat:@"%lu", (unsigned long)_content.ID];
-//    [self.view setNeedsDisplay];
 }
 
 -(void)setContent:(ArticleContent *)content{
@@ -54,7 +52,6 @@
 
 -(void)showContent{
     [_downloadingIndicator stopAnimating];
-    _downloadingIndicator.hidden = YES;
     [self updateUI];
     [self hideUI:NO];
 }
@@ -63,7 +60,6 @@
     _titlelabel.hidden = show;
     _summaryLabel.hidden = show;
     _dateLabel.hidden = show;
-    _mainImage.hidden = show;
     _body.hidden = show;
     _ID.hidden = show;
 }

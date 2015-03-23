@@ -11,6 +11,7 @@
 #import "ContentController.h"
 #import "UserComment.h"
 #import "LoadingTableViewCell.h"
+#import "ArticleContent.h"
 
 @interface CommentsViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -57,7 +58,11 @@
                     cell = [self.tableView dequeueReusableCellWithIdentifier:@"CommentsCell"];
                 }
                 cell.name.text = comment.username;
-                cell.rating.text = [NSString stringWithFormat:@"%li", (long)comment.rating];
+                if (comment.rating == 0) {
+                    cell.rating.hidden = YES;
+                } else {
+                    cell.rating.text = [NSString stringWithFormat:@"%li", (long)comment.rating];
+                }
                 cell.status.text = comment.userStatus;
                 cell.date.text = comment.date;
                 cell.contentLabel.text = comment.content;

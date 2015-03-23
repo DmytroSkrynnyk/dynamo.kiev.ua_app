@@ -17,20 +17,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _leagueBaseURLs = [NSArray arrayWithObjects:@"/ukraine/", @"/champions-league/",  @"/europa-league/", @"/england-premier-league/", @"/italy-Serie-A/", @"/spain-primera/", @"/germany-bundesliga/", @"/france-Ligue1/", @"/ukraine-under21/", @"/ukraine-first-league/", nil];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    _leagueBaseURLs = @[@"/ukraine/", @"/champions-league/",  @"/europa-league/", @"/england-premier-league/", @"/italy-Serie-A/", @"/spain-primera/", @"/germany-bundesliga/", @"/france-Ligue1/", @"/ukraine-under21/", @"/ukraine-first-league/"];
 }
 
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     StatisticsViewController *svc = (StatisticsViewController *)segue.destinationViewController;
     svc.baseURL = sender;
+    if ([sender isEqualToString:@"/champions-league/"] || [sender isEqualToString:@"/europa-league/"] ) {
+        svc.isEurocups = YES;
+    }
+
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
