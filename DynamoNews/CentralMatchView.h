@@ -21,6 +21,8 @@
 @property (nonatomic) NSInteger guestTeamGoalsScored;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *centralMatchLoadingActivity;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *centralMatchHieght;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *homeTeamNamePosition;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *guestTeamNamePosition;
 @property (nonatomic) BOOL isCentralMatchLoaded;
 
 -(void)updateCentralMatch:(MatchScoreInfo *)match;

@@ -13,9 +13,12 @@
 @implementation StartingViewController
 
 -(void)viewDidLoad{
+    [super viewDidLoad];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMainView:) name:@"infoPrepared" object:nil];
     ContentController *controller = [[ContentController alloc] initWithType:NEWS_TYPE];
     if ([controller loadNextPageUsingType:DOWNLOAD_TO_BOTTOM]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMainView:) name:@"infoPrepared" object:nil];
+        
     } else{
         [_loadingIndicator stopAnimating];
         _internetStatus.text = @"No internet connection";

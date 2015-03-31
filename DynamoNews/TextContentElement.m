@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 AlPono.inc. All rights reserved.
 //
 
-#import "SimpleContentElement.h"
+#import "TextContentElement.h"
 
-@implementation SimpleContentElement
+@implementation TextContentElement
 
 @end

@@ -9,67 +9,63 @@
 #import "ArticleViewController.h"
 #import "ArticleContent.h"
 #import "CommentsViewController.h"
+#import "TextContentElement.h"
+#import "ImageArticleElement.h"
+#import "VideoArticleElement.h"
 
 @implementation ArticleViewController
 
 -(instancetype)initWithArticle:(id)article{
     self = [super init];
     if (self) {
-        self.content = article;
+        self.article = article;
     }
     return self;
 }
-
-- (IBAction)manualUpdateUI:(id)sender {
-    [self updateUI];
-}
-
--(void)updateUI{
-    _titlelabel.text = _content.title;
-    if (_content.articleType == BLOGS_TYPE || _content.articleType == BLOGS_OTHER_TYPE) {
-        _summaryLabel.text = _content.userName;
-    } else {
-        _summaryLabel.text = _content.summary;
-    }
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
-    [dateFormat setDateFormat:@"dd.MM.yy hh:mm"];
-    _dateLabel.text = [dateFormat stringFromDate:_content.publishedDate];
-    _body.attributedText = _content.attributedContent;
-    _ID.text = [NSString stringWithFormat:@"%lu", (unsigned long)_content.ID];
-}
-
--(void)setContent:(ArticleContent *)content{
-    _content = content;
-    [self updateUI];
+- (IBAction)test:(id)sender {
+    
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    [self hideUI:YES];
-    [_downloadingIndicator startAnimating];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showContent) name:@"downloadingSynchronization" object:nil];
+    if (_article.isLoaded == NO) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showContent) name:@"downloadingSynchronization" object:nil];
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    if (_article.isLoaded) {
+        [self showContent];
+        if (_article.commentsCount > 0) {
+            _commentsButton.titleLabel.text = [NSString stringWithFormat:@"Комментариев: %ld", (long)_article.commentsCount];
+            _bottomBarView.hidden = NO;
+        }
+    }
 }
 
 -(void)showContent{
     [_downloadingIndicator stopAnimating];
-    [self updateUI];
-    [self hideUI:NO];
-}
-
--(void)hideUI:(BOOL)show{
-    _titlelabel.hidden = show;
-    _summaryLabel.hidden = show;
-    _dateLabel.hidden = show;
-    _body.hidden = show;
-    _ID.hidden = show;
+    if (_article.commentsCount > 0) {
+        _commentsButton.titleLabel.text = [NSString stringWithFormat:@"Комментариев: %ld", (long)_article.commentsCount];
+        _bottomBarView.hidden = NO;
+    }
+    _contentTextView.text = [NSString stringWithFormat:@"%@\n",_article.title];
+    for (id contentElement in _article.content) {
+        if ([contentElement isMemberOfClass:[TextContentElement class]]) {
+            TextContentElement *textElement = (TextContentElement *)contentElement;
+            NSString *content = _contentTextView.text;
+            content = [NSString stringWithFormat:@"%@\n%@", content, textElement.textContent];
+            _contentTextView.text = content;
+        }
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"CommentsView"]) {
         if ([segue.destinationViewController isKindOfClass:[CommentsViewController class]]) {
             CommentsViewController *cvc = (CommentsViewController *)segue.destinationViewController;
-            cvc.articleToShow = _content;
-            if(!_content.commentsContainer.comments.count){
+            cvc.articleToShow = _article;
+            if(!_article.commentsContainer.comments.count){
                 [cvc prepareContent];
             }
         }

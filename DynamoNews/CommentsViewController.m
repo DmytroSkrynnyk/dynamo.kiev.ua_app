@@ -23,23 +23,20 @@
     [super viewDidLoad];
     [self.tableView setDataSource:self];
     [self.tableView setDelegate:self];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showContent) name:@"CommentsDownloaded" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:_tableView selector:@selector(reloadData) name:@"CommentsDownloaded" object:nil];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row + 1 == _articleToShow.commentsContainer.comments.count && _articleToShow.commentsContainer.isAllCommentsLoaded == NO){
         [self prepareContent];
     }
-    if(indexPath.row == _articleToShow.commentsContainer.comments.count){
+    if(indexPath.row == _articleToShow.commentsContainer.comments.count && _articleToShow.commentsContainer.isAllCommentsLoaded == NO){
         LoadingTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"LoadComments"];
         return cell;
     } else {
         UserComment *comment;
         CommentsTableViewCell *cell;
         if(indexPath.row == 0 && _articleToShow.commentsContainer.bestComment != nil){
-            
-            //create standalone view for best comment!!
-            
             comment = _articleToShow.commentsContainer.bestComment;
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"BestCommentCell"];
             cell.name.text = comment.username;
@@ -85,13 +82,16 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(_articleToShow.commentsContainer.comments.count != indexPath.row){
-        UserComment *comment = _articleToShow.commentsContainer.comments[indexPath.row];
+        UserComment *comment;
+        NSInteger nonContentLabelHieght = 57;
+        if (_articleToShow.commentsContainer.bestComment && indexPath.row == 0) {
+            comment = _articleToShow.commentsContainer.bestComment;
+            nonContentLabelHieght = 57 + 24;
+        } else {
+            comment = _articleToShow.commentsContainer.comments[indexPath.row];
+        }
         CGFloat contentLanelWidth = self.view.frame.size.width - 16 - (20 * comment.level);
         CGSize size = [comment.content sizeWithFont:[UIFont systemFontOfSize:15.0] constrainedToSize:CGSizeMake(contentLanelWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-        NSInteger nonContentLabelHieght = 57;
-        if (indexPath.row == 0) {
-            nonContentLabelHieght = 57 + 24;
-        }
         return [comment.content isEqualToString:@"Комментарий удален"] ? 35 : size.height + nonContentLabelHieght;
     } else {
         return 75;
@@ -102,24 +102,5 @@
 -(void)prepareContent{
     [ContentController dowloadAndParseCommentsForArticle:_articleToShow];
 }
-
--(void)showContent{
-    [self.tableView reloadData];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

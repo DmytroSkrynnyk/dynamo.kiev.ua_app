@@ -17,13 +17,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _leagueBaseURLs = @[@"/ukraine/", @"/champions-league/",  @"/europa-league/", @"/england-premier-league/", @"/italy-Serie-A/", @"/spain-primera/", @"/germany-bundesliga/", @"/france-Ligue1/", @"/ukraine-under21/", @"/ukraine-first-league/"];
+    _leagueBaseURLs = @[@"ukraine", @"champions-league",  @"europa-league", @"england-premier-league", @"italy-Serie-A", @"spain-primera", @"germany-bundesliga", @"france-Ligue1", @"ukraine-under21", @"ukraine-first-league"];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     StatisticsViewController *svc = (StatisticsViewController *)segue.destinationViewController;
     svc.baseURL = sender;
-    if ([sender isEqualToString:@"/champions-league/"] || [sender isEqualToString:@"/europa-league/"] ) {
+    if ([sender isEqualToString:@"champions-league"] || [sender isEqualToString:@"europa-league"]) {
         svc.isEurocups = YES;
     }
 

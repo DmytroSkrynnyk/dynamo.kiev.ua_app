@@ -71,11 +71,9 @@
             ArticleViewController *avc = (ArticleViewController *)segue.destinationViewController;
             NSIndexPath *indexPath = (NSIndexPath *)sender;
             avc.view.hidden = NO;
-            [avc setContent:[_content.articles objectAtIndex:indexPath.row]];
-            if (avc.content.isLoaded == NO) {
-                [_content loadSourceCodeOfArticle:avc.content];
-            } else {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadingSynchronization" object:nil];
+            avc.article = [_content.articles objectAtIndex:indexPath.row];
+            if (avc.article.isLoaded == NO) {
+                [_content loadSourceCodeOfArticle:avc.article];
             }
         }
     }
@@ -83,7 +81,7 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI) name:@"infoPrepared" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"infoPrepared" object:nil];
     [self.refreshControl addTarget:self action:@selector(reloadContent) forControlEvents:UIControlEventValueChanged];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noConnection) name:@"noConnection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noConnection) name:@"downloadFailure" object:nil];

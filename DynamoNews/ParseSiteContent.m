@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 AlPono.inc. All rights reserved.
 //
 
-#import "ParseDynamoKievUa.h"
+#import "ParseSiteContent.h"
 #import "HTMLParser.h"
 #import "HTMLNode.h"
 #import "ArticleContent.h"
@@ -14,20 +14,15 @@
 #import "PlayerStats.h"
 #import "UserComment.h"
 #import "MatchScoreInfo.h"
+#import "PlayoffsMatchScoreInfo.h"
+#import "TextContentElement.h"
+#import "VideoArticleElement.h"
+#import "ImageArticleElement.h"
 
 
-@implementation ParseDynamoKievUa
+@implementation ParseSiteContent
 
-+ (NSMutableArray *)parseDynamoNewslinePage:(NSString *)page{
-    //local page
-    if (!page) {
-        NSString* filePath = [[NSBundle mainBundle] pathForResource:@"dynamo_articles" ofType:@"html"];
-        NSError *errorReading;
-        page = [NSString stringWithContentsOfFile:filePath
-                                         encoding:NSUTF8StringEncoding
-                                            error:&errorReading];
-    }
-    //-local page
++ (NSMutableArray *)parseNewslinePage:(NSString *)page{
     NSError *error;
     HTMLParser *parser = [[HTMLParser alloc] initWithString:page error:&error];
     HTMLNode *bodyNode = [parser body];
@@ -76,18 +71,18 @@
                         NSDate *pubDate = [dateFormat dateFromString:childNodeContent];
                         article.publishedDate = pubDate;
                     }
-                    HTMLNode *divContent = [[node findChildWithAttribute:@"class" matchingName:@"nodeImg" allowPartial:NO] parent];
-                    if (divContent) {
-                        NSArray *pNodes = [divContent findChildTags:@"p"];
-                        NSMutableString *articleContent = [[NSMutableString alloc] init];
-                        for (HTMLNode *pNode in pNodes) {
-                            if (![[pNode allContents] hasPrefix:@"Читать"]) {
-                                [articleContent appendString:[pNode allContents]];
-                                [articleContent appendString:@"\n"];
-                            }
-                        }
-                        article.content = articleContent;
-                    }
+//                    HTMLNode *divContent = [[node findChildWithAttribute:@"class" matchingName:@"nodeImg" allowPartial:NO] parent];
+//                    if (divContent) {
+//                        NSArray *pNodes = [divContent findChildTags:@"p"];
+//                        NSMutableString *articleContent = [[NSMutableString alloc] init];
+//                        for (HTMLNode *pNode in pNodes) {
+//                            if (![[pNode allContents] hasPrefix:@"Читать"]) {
+//                                [articleContent appendString:[pNode allContents]];
+//                                [articleContent appendString:@"\n"];
+//                            }
+//                        }
+////                        article.content = articleContent;
+//                    }
                 }
                 article.isLoaded = NO;
                 [articles addObject:article];
@@ -97,91 +92,43 @@
     return articles;
 }
 
-+(void)parseDynamoArticlePage:(NSString *)page savingTo:(ArticleContent *)article{
++(void)parseArticlePage:(NSString *)page savingTo:(ArticleContent *)article{
     
     NSError *error;
     HTMLParser *parser = [[HTMLParser alloc] initWithString:page error:&error];
     HTMLNode *bodyNode = [parser body];
     if(bodyNode && !error){
-        HTMLNode *divIdPosts = [bodyNode findChildWithAttribute:@"id" matchingName:@"posts" allowPartial:NO];
-        NSArray *articleContent = [divIdPosts children];
-        NSString *childNodeContent = [[NSString alloc] init];
-        
-        for (HTMLNode *node in articleContent) {
-            HTMLNode *sourceInfoNode = [node findChildOfClass:@"source"];
-            HTMLNode *aNode = [sourceInfoNode findChildTag:@"a"];
-            if (aNode) {
-                NSString *sourceInfoURL = [aNode getAttributeNamed:@"href"];
-                childNodeContent = [aNode contents];
-                article.infoSource = childNodeContent;
-                article.infoSourceURL = sourceInfoURL;
-            }
-            HTMLNode *contentNode = [[[node findChildWithAttribute:@"class" matchingName:@"nodeImg" allowPartial:NO] parent] parent];
-            
-            if (contentNode) {
-                NSArray *contentChildren = [contentNode children];
-                NSMutableArray *contentOfArticle = [[NSMutableArray alloc] init];
-                NSString *tag;
-                for (HTMLNode *node in contentChildren) {
-                    tag = [node tagName];
-                    if (![tag isEqualToString:@"text"]) {
-                        if ([tag isEqualToString:@"p"]) {
-                            HTMLNode *videoContent = [node findChildTag:@"object"];
-                            if (videoContent) {
-                                
-                            } else {
-                                [contentOfArticle addObject:[node allContents]];
+        NSArray *contentTags = [[bodyNode findChildOfClass:@"content"] children];
+        article.content = [[NSMutableArray alloc] init];
+        for (HTMLNode *contentNode in contentTags) {
+            NSString *classOfTag = [contentNode className];
+            if (![classOfTag hasPrefix:@"banner"]) {
+                NSString *nameOfTag = [contentNode tagName];
+                if (![nameOfTag isEqualToString:@"text"]) {
+                    if ([nameOfTag isEqualToString:@"p"]) {
+                        NSString *content = [contentNode allContents];
+                        if (content.length != 0) {
+                            TextContentElement *textElement = [[TextContentElement alloc] init];
+                            if ([contentNode findChildTag:@"strong"]) {
+                                textElement.isBold = YES;
                             }
+                            textElement.textContent = content;
+                            [article.content addObject:textElement];
                         }
+                        
+                    } else if ([classOfTag hasPrefix:@"image"]) {
+                        ImageArticleElement *image = [[ImageArticleElement alloc] init];
+                        image.URL = [[contentNode findChildTag:@"img"] getAttributeNamed:@"src"];
+                        image.title = [[contentNode findChildOfClass:@"pictitle"] allContents];
+                        [article.content addObject:image];
+                    } else if ([classOfTag isEqualToString:@"source"]) {
+                        TextContentElement *textElement = [[TextContentElement alloc] init];
+                        textElement.textContent = [contentNode allContents];
+                        textElement.isSource = YES;
+                        [article.content addObject:textElement];
                     }
                 }
-                NSArray *pNodes = [contentNode findChildTags:@"p"];
-                NSMutableString *articleContent = [[NSMutableString alloc] init];
-                for (NSUInteger i = 0; i < pNodes.count; i++) {
-                    if (i == 0) {
-                        article.summary = [pNodes[i] allContents];
-                    }else{
-                        [articleContent appendString:[pNodes[i] allContents]];
-                        [articleContent appendString:@"\n"];
-                    }
-                }
-                article.content = articleContent;
             }
-            childNodeContent = [[divIdPosts findChildWithAttribute:@"class"
-                                                      matchingName:@"content"
-                                                      allowPartial:NO] rawContents];
-            if (childNodeContent) {
-                NSString *docsFolder = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-                NSString *filename = [docsFolder stringByAppendingPathComponent:@"htmlContent.html"];
-                NSError *error;
-                [childNodeContent writeToFile:filename atomically:NO encoding:NSUTF8StringEncoding error:&error];
-                NSURL *fileURL = [NSURL fileURLWithPath:filename];
-                article.attributedContent = [[NSMutableAttributedString alloc] initWithFileURL:fileURL options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute : @(NSUTF8StringEncoding)} documentAttributes:nil error:nil];
-                [[NSFileManager defaultManager] removeItemAtURL:fileURL error:&error];
-                
-            }
-        }
-        article.isLoaded = YES;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadingSynchronization" object:nil];
-    }
-}
-
-+ (void)parseBlogArticlePage:(NSString *)page savingTo:(ArticleContent *)article{
-    NSError *error;
-    HTMLParser *parser = [[HTMLParser alloc] initWithString:page error:&error];
-    HTMLNode *bodyNode = [parser body];
-    if(bodyNode && !error){
-        HTMLNode *divIdPosts = [bodyNode findChildWithAttribute:@"class" matchingName:@"single" allowPartial:NO];
-        NSString *childNodeContent = [[NSString alloc] init];
-        childNodeContent = [[divIdPosts findChildWithAttribute:@"class" matchingName:@"content" allowPartial:NO] rawContents];
-        if (childNodeContent) {
-            NSString *docsFolder = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-            NSString *filename = [docsFolder stringByAppendingPathComponent:@"htmlContent.html"];
-            NSError *error;
-            [childNodeContent writeToFile:filename atomically:NO encoding:NSUTF8StringEncoding error:&error];
-            
-            NSURL *fileURL = [NSURL fileURLWithPath:filename];
-            article.attributedContent = [[NSMutableAttributedString alloc] initWithFileURL:fileURL options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute : @(NSUTF8StringEncoding)} documentAttributes:nil error:nil];
         }
         article.isLoaded = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadingSynchronization" object:nil];
@@ -440,8 +387,14 @@
             centralMatch.homeTeam = [teamNameNodes[0] contents];
             centralMatch.guestTeam = [teamNameNodes[1] contents];
             NSArray *teamCityNodes = [bMatch findChildrenOfClass:@"b-match__body__city"];
-            centralMatch.homeTeamCity = [teamCityNodes[0] contents];
-            centralMatch.guestTeamCity = [[teamCityNodes[1] contents] stringByReplacingOccurrencesOfString:@" " withString:@""];
+            NSString *temp = [[teamCityNodes[0] contents] stringByReplacingOccurrencesOfString:@" " withString:@""];
+            if(temp.length > 3){
+                centralMatch.homeTeamCity = temp;
+            }
+            temp = [[teamCityNodes[1] contents] stringByReplacingOccurrencesOfString:@" " withString:@""];
+            if(temp.length > 3){
+                centralMatch.guestTeamCity = temp;
+            }
             centralMatch.date = [[bMatch findChildOfClass:@"b-match__body-info"] contents];
             HTMLNode *teamNode = [bMatch findChildOfClass:@"b-match__body__left_pad"];
             NSString *matchScore = [[teamNode findChildWithAttribute:@"class" matchingName:@"b-counter-widg_num" allowPartial:YES] getAttributeNamed:@"class"];
@@ -453,7 +406,7 @@
                     matchScore = [matchScore stringByReplacingOccurrencesOfString:@"\t" withString:@""];
                     matchScore = [matchScore substringWithRange:NSMakeRange(2, matchScore.length - 4)];
                     matchScore = [matchScore stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
-                    centralMatch.homeTeamScorers = [ParseDynamoKievUa nameOfScorersToArray:matchScore];
+                    centralMatch.homeTeamScorers = [ParseSiteContent nameOfScorersToArray:matchScore];
                 }
                 teamNode = [bMatch findChildOfClass:@"b-match__body__right_pad"];
                 matchScore = [[teamNode findChildWithAttribute:@"class" matchingName:@"b-counter-widg_num" allowPartial:YES] getAttributeNamed:@"class"];
@@ -464,7 +417,7 @@
                     matchScore = [matchScore stringByReplacingOccurrencesOfString:@"\t" withString:@""];
                     matchScore = [matchScore substringWithRange:NSMakeRange(2, matchScore.length - 4)];
                     matchScore = [matchScore stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
-                    centralMatch.guestTeamScorers = [ParseDynamoKievUa nameOfScorersToArray:matchScore];
+                    centralMatch.guestTeamScorers = [ParseSiteContent nameOfScorersToArray:matchScore];
                 }
             } else {
                 centralMatch.homeTeamScore = centralMatch.guestTeamScore = -1;
@@ -519,16 +472,23 @@
 +(NSMutableArray *)getScorerDeletingName:(NSArray *)goalsNodes{
     NSMutableArray *scorers = [[NSMutableArray alloc] init];
     for (HTMLNode *liNode in goalsNodes) {
-        NSString *scorerNodeContent = [liNode allContents];
-        scorerNodeContent = [scorerNodeContent stringByReplacingOccurrencesOfString:@"- " withString:@""];
-        NSRange spaceRange = [scorerNodeContent rangeOfString:@" "];
-        NSString *scorer = [scorerNodeContent substringToIndex:spaceRange.location];
-        scorerNodeContent = [scorerNodeContent substringFromIndex:spaceRange.location + 1];
-        spaceRange = [scorerNodeContent rangeOfString:@" "];
-        if (spaceRange.location != NSNotFound) {
-            scorerNodeContent = [scorerNodeContent substringFromIndex:spaceRange.location + 1];
+        NSString *scorer = [[liNode allContents] stringByReplacingOccurrencesOfString:@"- " withString:@""];
+        NSString *penalty = @"";
+        NSRange penaltyRange = [scorer rangeOfString:@" (п.)"];
+        if (penaltyRange.location != NSNotFound) {
+            penalty = [scorer substringFromIndex:penaltyRange.location];
+            scorer = [scorer substringToIndex:penaltyRange.location];
         }
-        scorer = [NSString stringWithFormat:@"%@ %@", scorer, scorerNodeContent];
+        if([scorer rangeOfString:@"."].location + 1 != scorer.length){
+            NSRange spaceRange = [scorer rangeOfString:@" "];
+            NSString *time = [scorer substringToIndex:spaceRange.location];
+            NSString *scorerName = [scorer substringFromIndex:spaceRange.location + 1];
+            spaceRange = [scorerName rangeOfString:@" "];
+            if (spaceRange.location != NSNotFound) {
+                scorerName = [scorerName substringFromIndex:spaceRange.location + 1];
+            }
+            scorer = [NSString stringWithFormat:@"%@ %@%@", time, scorerName, penalty];
+        }
         [scorers addObject:scorer];
     }
     return scorers;
@@ -547,7 +507,7 @@
             HTMLNode *bestCommentNode = [bodyNode findChildOfClass:@"well"];
             if(bestCommentNode){
                 article.commentsContainer.bestComment = [[UserComment alloc] init];
-                [ParseDynamoKievUa parseCommentNode:bestCommentNode savingTo:article.commentsContainer.bestComment];
+                [ParseSiteContent parseCommentNode:bestCommentNode savingTo:article.commentsContainer.bestComment];
             }
             HTMLNode *loadCommentsNode =[bodyNode findChildWithAttribute:@"href" matchingName:@"#load-comments" allowPartial:NO];
             if([loadCommentsNode getAttributeNamed:@"style"]){
@@ -574,7 +534,7 @@
                         comment.isDeleted = YES;
                         [article.commentsContainer.comments addObject:comment];
                     } else {
-                        [ParseDynamoKievUa parseCommentNode:liNode savingTo:comment];
+                        [ParseSiteContent parseCommentNode:liNode savingTo:comment];
                         [newComments addObject:comment];
                     }
                 }
@@ -640,16 +600,21 @@
             TeamResults *team = [[TeamResults alloc] init];
             NSArray *tdNodes = [teamNode findChildTags:@"td"];
             childNodeContent = [[tdNodes[0] findChildTag:@"strong"] allContents];
-            if (childNodeContent) {
+            NSRange spaceRange = [childNodeContent rangeOfString:@" "];
+            if (spaceRange.location == NSNotFound) {
                 team.name = childNodeContent;
-            }
-            childNodeContent = [[tdNodes[0] findChildTag:@"span"] allContents];
-            if (childNodeContent) {
+                childNodeContent = [[tdNodes[0] findChildTag:@"span"] allContents];
                 if ([childNodeContent hasPrefix:@" "]) {
                     childNodeContent = [childNodeContent substringFromIndex:1];
                 }
                 NSRange spaceLocation = [childNodeContent rangeOfString:@" "];
                 team.city = [childNodeContent substringFromIndex:spaceLocation.location+1];
+            } else {
+                team.name = [childNodeContent substringToIndex:spaceRange.location];
+                childNodeContent = [[tdNodes[0] findChildTag:@"span"] allContents];
+                NSRange teamNameRange = [childNodeContent rangeOfString:[NSString stringWithFormat:@"%@ ", team.name]];
+                childNodeContent = [childNodeContent substringFromIndex:teamNameRange.length + 1];
+                team.city = [childNodeContent substringFromIndex:[childNodeContent rangeOfString:@" "].location + 1];
             }
             team.gamesPlayed = [[tdNodes[1]contents] integerValue];
             team.wins = [[tdNodes[2]contents] integerValue];
@@ -712,5 +677,100 @@
         [groupsCalendar addObject:groupMatches];
     }
     [parsingResults setObject:groupsCalendar forKey:@"calendar"];
+}
+
++(NSMutableArray *)parsePlayoffsPage:(NSString *)page{
+    NSMutableArray *stages = [[NSMutableArray alloc] init];
+    NSError *error;
+    HTMLParser *parser = [[HTMLParser alloc] initWithString:page error:&error];
+    HTMLNode *bodyNode = [parser body];
+    HTMLNode *mainNode = [bodyNode findChildOfClass:@"accordion"];
+    NSArray *stagesNodes = [mainNode findChildrenOfClass:@"accordion-group"];
+    for (NSInteger i = 3; i < stagesNodes.count; i++) {
+        NSString *stageName = [[stagesNodes[i] findChildOfClass:@"accordion-heading"] allContents];
+        stageName = [ParseSiteContent deleteSpecialCharactersFromString:stageName];
+        NSMutableArray *matchesInStage = [[NSMutableArray alloc] init];
+        NSArray *pairs = [stagesNodes[i] findChildrenOfClass:@"main"];
+        for (HTMLNode *pair in pairs) {
+            NSArray *matchNodes = [pair children];
+            NSMutableArray *matchesInPair = [[NSMutableArray alloc] init];
+            if (matchNodes.count > 3) {
+                [matchesInPair addObject:[ParseSiteContent parsePlayoffsMatchNode:matchNodes[1] forStage:stageName]];
+                [matchesInPair addObject:[ParseSiteContent parsePlayoffsMatchNode:matchNodes[3] forStage:stageName]];
+                [matchesInStage addObject:matchesInPair];
+            }
+            
+        }
+        [stages addObject:matchesInStage];
+    }
+    stages = [ParseSiteContent reversedArray:stages];
+    return stages;
+}
+
++(MatchScoreInfo *)parsePlayoffsMatchNode:(HTMLNode *)matchNode forStage:(NSString *)stage{
+    PlayoffsMatchScoreInfo *match = [[PlayoffsMatchScoreInfo alloc] init];
+    match.tournament = stage;
+    NSArray *divNodes = [matchNode findChildTags:@"div"];
+    NSString *temp = [[divNodes[0] findChildTag:@"strong"] allContents];
+    match.homeTeam = [ParseSiteContent deleteSpecialCharactersFromString:temp];
+    HTMLNode *goalNode = [divNodes[0] findChildOfClass:@"goals"];
+    match.homeTeamScorers = [ParseSiteContent getGoalsFromNode:goalNode];
+    temp = [[divNodes[2] findChildTag:@"strong"] allContents];
+    match.guestTeam = [ParseSiteContent deleteSpecialCharactersFromString:temp];
+    goalNode = [divNodes[2] findChildOfClass:@"goals"];
+    match.guestTeamScorers = [ParseSiteContent getGoalsFromNode:goalNode];
+    temp = [[divNodes[1] findChildTag:@"a"] contents];
+    temp = [ParseSiteContent deleteSpecialCharactersFromString:temp];
+    NSRange dashRange = [temp rangeOfString:@"–"];
+    if (dashRange.location == NSNotFound) {
+        NSRange doubleDotsRange = [temp rangeOfString:@":"];
+        match.homeTeamScore = [[temp substringWithRange:NSMakeRange(doubleDotsRange.location - 2, 1)] integerValue];
+        match.guestTeamScore = [[temp substringWithRange:NSMakeRange(doubleDotsRange.location + 2, 1)] integerValue];
+    } else {
+        match.homeTeamScore = -1;
+        match.guestTeamScore = -1;
+    }
+    NSArray *liNodes = [divNodes[1] findChildTags:@"li"];
+    HTMLNode *penaltyNode = [divNodes[1] findChildOfClass:@"penalty"];
+    if (penaltyNode) {
+        match.penalty = [[penaltyNode contents] substringFromIndex:10];
+        temp = [liNodes[1] allContents];
+    } else {
+        temp = [liNodes[0] allContents];
+    }
+    NSRange dotRange = [temp rangeOfString:@"."];
+    NSString *date = [temp substringToIndex:dotRange.location - 10];
+    NSString *time = [temp substringWithRange:NSMakeRange(dotRange.location - 5, 5)];
+    match.date = [NSString stringWithFormat:@"%@ %@", date, time];
+    return match;
+}
+
++(NSString *)deleteSpecialCharactersFromString:(NSString *)string{
+    NSString *clearedString = string.copy;
+    clearedString = [clearedString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    clearedString = [clearedString stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    clearedString = [clearedString stringByReplacingOccurrencesOfString:@"  " withString:@""];
+    return clearedString;
+}
+
++(NSMutableArray *)getGoalsFromNode:(HTMLNode *)node{
+    NSMutableArray *goals;
+    if (node) {
+        NSArray *liNodes = [node findChildTags:@"li"];
+        goals = [[NSMutableArray alloc] init];
+        for (HTMLNode *li in liNodes) {
+            [goals addObject:[li allContents]];
+        }
+    }
+    return goals;
+}
+
++ (NSMutableArray *)reversedArray:(NSMutableArray *)arrayToSort {
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:[arrayToSort count]];
+    NSEnumerator *enumerator = [arrayToSort reverseObjectEnumerator];
+    for (id element in enumerator) {
+        [array addObject:element];
+    }
+    return array;
 }
 @end

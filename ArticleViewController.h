@@ -10,17 +10,12 @@
 @class ArticleContent;
 
 @interface ArticleViewController : UIViewController
-//general properties
-@property (strong, nonatomic) ArticleContent *content;
-@property (weak, nonatomic) IBOutlet UILabel *titlelabel;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UITextView *body;
-@property (weak, nonatomic) IBOutlet UILabel *ID;
+@property (strong, nonatomic) ArticleContent *article;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *downloadingIndicator;
-//news properties
-@property (weak, nonatomic) IBOutlet UILabel *summaryLabel;
-//blogs properties
+@property (weak, nonatomic) IBOutlet UIView *bottomBarView;
+@property (weak, nonatomic) IBOutlet UIButton *commentsButton;
+@property (weak, nonatomic) IBOutlet UITextView *contentTextView;
 
--(instancetype)initWithArticle:(ArticleContent *)article;
+-(instancetype)initWithArticle:(ArticleContent *)art;
 
 @end

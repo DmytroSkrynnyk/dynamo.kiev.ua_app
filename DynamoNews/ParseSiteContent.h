@@ -11,11 +11,10 @@
 @class HTMLNode;
 @class MatchScoreInfo;
 
-@interface ParseDynamoKievUa : NSObject
-+(NSMutableArray *)parseDynamoNewslinePage:(NSString *)page;
-+(void)parseDynamoArticlePage:(NSString *)page savingTo:(ArticleContent *)article;
+@interface ParseSiteContent : NSObject
++(NSMutableArray *)parseNewslinePage:(NSString *)page;
++(void)parseArticlePage:(NSString *)page savingTo:(ArticleContent *)article;
 +(NSMutableArray *)parseBlogsPage:(NSString *)page;
-+(void)parseBlogArticlePage:(NSString *)page savingTo:(ArticleContent *)article;
 +(NSMutableArray *)parseMatchCenterFile:(NSString *)page;
 +(NSMutableArray *)parseLegueTablePage:(NSString *)page;
 +(NSMutableArray *)parseLegueSchedulePage:(NSString *)page;
@@ -24,4 +23,5 @@
 +(NSMutableDictionary *)parseTableAndCalendarPage:(NSString *)page;
 +(void)parseMatchDetailInfoPage:(NSString *)page savingTo:(MatchScoreInfo *)match;
 +(void)parseCommentsPage:(NSString *)page savingTo:(ArticleContent *)article;
++(NSMutableArray *)parsePlayoffsPage:(NSString *)page;
 @end

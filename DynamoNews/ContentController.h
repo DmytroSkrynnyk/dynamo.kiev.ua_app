@@ -23,7 +23,6 @@
 -(void)loadSourceCodeOfArticle:(ArticleContent *)article;
 -(BOOL)refreshContent;
 +(void)downLoadImageForArticle:(ArticleContent *)article;
-+(void)downLoadImageForTeam:(TeamResults *)results;
 +(void)dowloadAndParseMatchCenterPageWithCompletionHandler:(void(^)(NSMutableArray *))completion
                                                      error:(void (^)(NSError *))error;
 +(void)dowloadAndParseTableForLegue:(NSString *)legue
@@ -44,6 +43,13 @@
 +(void)dowloadAndParseTableAndCalendarForLeague:(NSString *)league
                               completionHandler:(void(^)(NSMutableDictionary *))completion
                                           error:(void (^)(NSError *))error;
+
++(void)downloadAndParsePlayoffsForTournament:(NSInteger)tournament
+                           completionHandler:(void(^)(NSMutableArray *))completion
+                                       error:(void (^)(NSError *))error;
+
++(void)dowloadAndParseTableAndCalendarForEuroWithcompletionHandler:(void(^)(NSMutableDictionary *))completion
+                                                             error:(void (^)(NSError *))error;
 
 +(void)downloadAndParseDetailsForMatch:(MatchScoreInfo *)match;
 

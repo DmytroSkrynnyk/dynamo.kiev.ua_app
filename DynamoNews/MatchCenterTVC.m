@@ -68,7 +68,7 @@
     }
     [_matchesLoadingActivityIndicator stopAnimating];
     if (_matchView.isCentralMatchLoaded == NO) {
-        _matchView.centralMatchHieght.constant = 22;
+        _matchView.centralMatchHieght.constant = 42;
         _matchView.centralMatchLoadingActivity.hidden = NO;
         [_matchView.centralMatchLoadingActivity startAnimating];
     }
@@ -149,7 +149,6 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    _lastSelectedCell = indexPath;
     MatchCenterTableViewCell *cell = (MatchCenterTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
     [cell setLoadingCellState:YES];
     MatchScoreInfo *match = _content[indexPath.section][indexPath.row];
@@ -182,7 +181,6 @@
     cell.rightTeam.text = match.guestTeam;
     cell.date.text = match.date;
     cell.scorePosition.constant = (self.view.bounds.size.width - (self.view.bounds.size.width - cell.date.frame.size.width)) / 2;
-    
     if (match.homeTeamScorers || match.guestTeamScorers) {
         [self addGoalLabelsForMatch:match inCell:cell];
     }

@@ -43,7 +43,11 @@
             multiplier = _homeTeamGoalsScored > _guestTeamGoalsScored ? _homeTeamGoalsScored : _guestTeamGoalsScored;
         }
         [_centralMatchLoadingActivity stopAnimating];
-        _centralMatchHieght.constant = 99 + 15 * multiplier;
+        if(!match.homeTeamCity && !match.guestTeamCity){
+            _homeTeamNamePosition.constant = 0;
+            _guestTeamNamePosition.constant = 0;
+        }
+        _centralMatchHieght.constant = 123 + 15 * multiplier;
         [self hideCentralMatchView:NO];
     } else {
         [_centralMatchLoadingActivity stopAnimating];
@@ -66,7 +70,7 @@
 
 -(void)addHomeTeamScorersLabel:(NSArray *)scorers{
     if (_homeTeamGoalsScored > 0) {
-        NSInteger yPosition = 80;
+        NSInteger yPosition = 100;
         for (NSString *scorer in scorers) {
             CGRect scrorerLabelPosition = CGRectMake(0, yPosition, self.bounds.size.width / 2 - 33, 15);
             UILabel *scorerLabel = [[UILabel alloc] initWithFrame:scrorerLabelPosition];
@@ -81,7 +85,7 @@
 
 -(void)addGuestTeamScorersLabel:(NSArray *)scorers{
     if (_guestTeamGoalsScored > 0) {
-        NSInteger yPosition = 80;
+        NSInteger yPosition = 100;
         for (NSString *scorer in scorers) {
             CGRect scrorerLabelPosition = CGRectMake(self.bounds.size.width / 2 + 33, yPosition, 111, 15);
             UILabel *scorerLabel = [[UILabel alloc] initWithFrame:scrorerLabelPosition];
